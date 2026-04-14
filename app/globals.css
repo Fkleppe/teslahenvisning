@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --surface: #fafafa;
+  --background: #fbfbfa;
+  --surface: #f3f3f1;
   --foreground: #0a0a0a;
-  --muted: #6b6b6b;
-  --muted-2: #a1a1a1;
-  --line: rgba(0, 0, 0, 0.08);
-  --line-strong: rgba(0, 0, 0, 0.14);
+  --muted: #5b5b5b;
+  --muted-2: #9a9a98;
+  --line: rgba(10, 10, 10, 0.07);
+  --line-strong: rgba(10, 10, 10, 0.14);
+  --accent: #1e5cff;
+  --accent-soft: rgba(30, 92, 255, 0.08);
 }
 
 @theme inline {
@@ -18,8 +20,11 @@
   --color-muted-2: var(--muted-2);
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-serif);
 }
 
 html, body {
@@ -29,13 +34,73 @@ html, body {
 
 body {
   font-family: var(--font-geist-sans), "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11", "cv05";
   -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.005em;
+}
+
+.font-mono { font-family: var(--font-geist-mono), ui-monospace, monospace; }
+.font-serif { font-family: var(--font-serif), "Times New Roman", serif; }
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* Subtle dot grid for hero */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(10, 10, 10, 0.07) 1px, transparent 1px);
+  background-size: 18px 18px;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(ellipse 90% 60% at 50% 30%, black 30%, transparent 75%);
+}
+
+.hero-glow {
+  background: radial-gradient(ellipse 50% 40% at 30% 20%, rgba(30, 92, 255, 0.10), transparent 70%);
+}
+
+/* Hairline divider with label */
+.label {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-transform: uppercase;
 }
 
 .fade-up { animation: fu 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 .fade-up-2 { animation: fu 0.6s 0.08s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 .fade-up-3 { animation: fu 0.6s 0.16s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.fade-up-4 { animation: fu 0.6s 0.24s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 @keyframes fu {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Refined image card */
+.img-card {
+  border: 1px solid var(--line);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 30px 60px -20px rgba(10, 10, 10, 0.18),
+    0 8px 24px -10px rgba(10, 10, 10, 0.08);
+}
+
+.accent-link {
+  color: var(--accent);
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+}
+.accent-link::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 1px;
+  background: var(--accent);
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.accent-link:hover::after { transform-origin: left; transform: scaleX(1); }
+
+/* Section spacer */
+.section { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+@media (min-width: 640px) { .section { padding-top: 7rem; padding-bottom: 7rem; } }
