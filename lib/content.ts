@@ -114,19 +114,19 @@ export const CONTENT: Record<Locale, Copy> = {
     heroTitleAccent: "med henvisningsfordeler.",
     heroSub:
       "Ett klikk på lenken under aktiverer den gjeldende henvisningsbonusen fra Tesla — gratis Supercharger-kilometer eller den aktive kampanjen. Ingen kode, ingen skjema.",
-    ctaPrimary: "Åpne Tesla med min henvisning",
+    ctaPrimary: "Åpne Tesla med henvisning",
     ctaSecondary: "Hvordan fungerer det?",
     verifiedPrefix: "Sist verifisert",
     secured: "Sikker lenke til tesla.com",
-    trustRow: ["Offisiell Tesla-henvisning", "Aktiveres automatisk", "Ingen ekstra kostnad for deg"],
+    trustRow: ["Ingen ekstra kostnad", "Samme pris som uten"],
 
     whyTitle: "Derfor bruker du min henvisningslenke",
     whySub: "Tesla gir bonuser kun via personlige henvisningslenker — ikke koder, ikke inntasting.",
     benefits: [
-      { icon: "zap", t: "Gratis Supercharger-kilometer", d: "Aktiver kilometer-bonusen når du tar delivery av din nye Tesla." },
-      { icon: "gift", t: "Aktiv kampanje", d: "Tesla oppdaterer bonusen — lenken bruker alltid gjeldende tilbud." },
-      { icon: "shield", t: "Samme pris som uten", d: "Henvisning påvirker ikke kjøpesummen. Du betaler nøyaktig det samme." },
-      { icon: "clock", t: "Aktiveres automatisk", d: "Tesla knytter bonusen til bestillingen idet du trykker på lenken." },
+      { icon: "zap", t: "Offisiell Tesla-bonus", d: "Henvisningen går direkte til tesla.com/no_no. Ingen tredjepart, ingen skjema, ingen kode." },
+      { icon: "gift", t: "Alltid gjeldende tilbud", d: "Tesla endrer kampanjen jevnlig. Lenken peker alltid til det aktive tilbudet i din Tesla-konto." },
+      { icon: "shield", t: "Samme pris som uten", d: "Henvisning påvirker ikke kjøpesummen. Du betaler nøyaktig det samme som alle andre kunder." },
+      { icon: "clock", t: "Null ekstra arbeid", d: "Ingen kode å lime inn, ingen registrering. Tesla knytter henvisningen til bestillingen i URL-en automatisk." },
     ],
 
     howTitle: "Slik fungerer det",
@@ -156,7 +156,7 @@ export const CONTENT: Record<Locale, Copy> = {
       { id: "S", name: "Model S", tag: "Luksus", priceFrom: "fra 899 900 kr", range: "634 km rekkevidde" },
       { id: "X", name: "Model X", tag: "SUV", priceFrom: "fra 999 900 kr", range: "560 km rekkevidde" },
     ],
-    modelCta: "Bestill med henvisning",
+    modelCta: "Åpne Tesla med henvisning",
 
     faqTitle: "Ofte stilte spørsmål",
     faqSub: "Alt du trenger å vite før du bruker lenken.",
@@ -171,7 +171,7 @@ export const CONTENT: Record<Locale, Copy> = {
 
     finalCta: "Klar til å bestille?",
     finalCtaSub: "Trykk på lenken og få henvisningsbonusen aktivert automatisk.",
-    finalCtaButton: "Åpne Tesla Norge",
+    finalCtaButton: "Åpne Tesla med henvisning",
 
     footerAbout: "Om henvisningslenken",
     footerLinks: "Ressurser",
@@ -189,11 +189,11 @@ export const CONTENT: Record<Locale, Copy> = {
     heroTitleAccent: "med henvisningsfordele.",
     heroSub:
       "Ét klik på linket nedenfor aktiverer Teslas aktuelle henvisningsbonus — gratis Supercharger-kilometer eller den aktive kampagne. Ingen kode, ingen formular.",
-    ctaPrimary: "Åbn Tesla med min henvisning",
+    ctaPrimary: "Åbn Tesla med henvisning",
     ctaSecondary: "Hvordan virker det?",
     verifiedPrefix: "Senest verificeret",
     secured: "Sikkert link til tesla.com",
-    trustRow: ["Officiel Tesla-henvisning", "Aktiveres automatisk", "Ingen ekstra omkostning"],
+    trustRow: ["Ingen ekstra omkostning", "Samme pris som uden"],
 
     whyTitle: "Derfor bruger du mit henvisningslink",
     whySub: "Tesla giver kun bonusser via personlige henvisningslinks — ikke koder, ikke indtastning.",
@@ -231,7 +231,7 @@ export const CONTENT: Record<Locale, Copy> = {
       { id: "S", name: "Model S", tag: "Luksus", priceFrom: "fra 799.990 kr", range: "634 km rækkevidde" },
       { id: "X", name: "Model X", tag: "SUV", priceFrom: "fra 899.990 kr", range: "560 km rækkevidde" },
     ],
-    modelCta: "Bestil med henvisning",
+    modelCta: "Åbn Tesla med henvisning",
 
     faqTitle: "Ofte stillede spørgsmål",
     faqSub: "Alt du skal vide før du bruger linket.",
@@ -246,7 +246,7 @@ export const CONTENT: Record<Locale, Copy> = {
 
     finalCta: "Klar til at bestille?",
     finalCtaSub: "Klik på linket og få henvisningsbonussen aktiveret automatisk.",
-    finalCtaButton: "Åbn Tesla Danmark",
+    finalCtaButton: "Åbn Tesla med henvisning",
 
     footerAbout: "Om henvisningslinket",
     footerLinks: "Ressourcer",
@@ -268,15 +268,15 @@ export const CONTENT: Record<Locale, Copy> = {
     ctaSecondary: "Hur fungerar det?",
     verifiedPrefix: "Senast verifierad",
     secured: "Säker länk till tesla.com",
-    trustRow: ["Officiell Tesla värva vän", "Aktiveras automatiskt", "Ingen extra kostnad"],
+    trustRow: ["Ingen extra kostnad", "Samma pris som utan"],
 
     whyTitle: "Därför använder du min länk",
     whySub: "Tesla ger bonusar endast via personliga värva vän-länkar — inte koder, ingen inmatning.",
     benefits: [
-      { icon: "zap", t: "Gratis Supercharger-kilometer", d: "Aktivera kilometerbonusen när du tar emot din nya Tesla." },
-      { icon: "gift", t: "Aktiv kampanj", d: "Tesla uppdaterar bonusen — länken använder alltid det aktuella erbjudandet." },
-      { icon: "shield", t: "Samma pris som utan", d: "Värva vän påverkar inte köpeskillingen. Du betalar exakt samma." },
-      { icon: "clock", t: "Aktiveras automatiskt", d: "Tesla knyter bonusen till beställningen när du klickar på länken." },
+      { icon: "zap", t: "Officiell Tesla värva vän", d: "Länken går direkt till tesla.com/sv_se. Ingen tredje part, inget formulär, ingen kod." },
+      { icon: "gift", t: "Alltid aktuellt erbjudande", d: "Tesla ändrar kampanjen regelbundet. Länken pekar alltid på det aktiva erbjudandet i ditt Tesla-konto." },
+      { icon: "shield", t: "Samma pris som utan", d: "Värva vän påverkar inte köpeskillingen. Du betalar exakt samma som alla andra kunder." },
+      { icon: "clock", t: "Inget extra arbete", d: "Ingen kod att klistra in, ingen registrering. Tesla knyter värva vän till beställningen via URL:en." },
     ],
 
     howTitle: "Så fungerar det",
@@ -306,7 +306,7 @@ export const CONTENT: Record<Locale, Copy> = {
       { id: "S", name: "Model S", tag: "Lyx", priceFrom: "från 1 049 990 kr", range: "634 km räckvidd" },
       { id: "X", name: "Model X", tag: "SUV", priceFrom: "från 1 149 990 kr", range: "560 km räckvidd" },
     ],
-    modelCta: "Beställ med länken",
+    modelCta: "Öppna Tesla med länken",
 
     faqTitle: "Vanliga frågor",
     faqSub: "Allt du behöver veta innan du använder länken.",
@@ -321,7 +321,7 @@ export const CONTENT: Record<Locale, Copy> = {
 
     finalCta: "Redo att beställa?",
     finalCtaSub: "Klicka på länken och få värva vän-bonusen aktiverad automatiskt.",
-    finalCtaButton: "Öppna Tesla Sverige",
+    finalCtaButton: "Öppna Tesla med länken",
 
     footerAbout: "Om länken",
     footerLinks: "Resurser",

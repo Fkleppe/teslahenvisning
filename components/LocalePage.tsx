@@ -13,24 +13,26 @@ import { JsonLd } from "./JsonLd";
 const HERO_IMG =
   "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=2400&q=90";
 
-const TICKER: Record<Locale, string[]> = {
-  no: ["Andreas · Oslo · Model Y", "Marit · Bergen · Model 3", "Lars · Trondheim · Model Y LR", "Henrik · Stavanger · Model S", "Anna · Kristiansand · Model 3", "Ole · Tromsø · Model X"],
-  dk: ["Mads · København · Model Y", "Line · Aarhus · Model 3", "Henrik · Odense · Model Y LR", "Sara · Aalborg · Model S", "Mikkel · Esbjerg · Model 3", "Pernille · Randers · Model X"],
-  se: ["Erik · Stockholm · Model Y", "Sofia · Göteborg · Model 3", "Johan · Malmö · Model Y LR", "Linnea · Uppsala · Model S", "Karl · Västerås · Model 3", "Astrid · Örebro · Model X"],
+const OFFER_HEADLINE: Record<Locale, { k: string; v: string; foot: string }> = {
+  no: { k: "Gjeldende henvisningsbonus", v: "Gratis Supercharger-kilometer", foot: "Tesla publiserer ikke beløpet offentlig. Du ser gjeldende bonus i bestillingsflyten." },
+  dk: { k: "Aktuel henvisningsbonus", v: "Gratis Supercharger-kilometer", foot: "Tesla offentliggør ikke beløbet. Du ser aktuel bonus i bestillingsflowet." },
+  se: { k: "Aktuell värva vän-bonus", v: "Gratis Supercharger-kilometer", foot: "Tesla offentliggör inte beloppet. Du ser aktuell bonus i beställningsflödet." },
 };
 
-const OFFER_HEADLINE: Record<Locale, { k: string; v: string; foot: string }> = {
-  no: { k: "Gjeldende henvisningsbonus", v: "Gratis Supercharger-kilometer", foot: "Aktiveres automatisk ved levering" },
-  dk: { k: "Aktuel henvisningsbonus", v: "Gratis Supercharger-kilometer", foot: "Aktiveres automatisk ved levering" },
-  se: { k: "Aktuell värva vän-bonus", v: "Gratis Supercharger-kilometer", foot: "Aktiveras automatiskt vid leverans" },
+const REASSURANCE: Record<Locale, string> = {
+  no: "Du sendes til tesla.com/no_no. Henvisningen registreres automatisk i URL-en.",
+  dk: "Du sendes til tesla.com/da_dk. Henvisningen registreres automatisk i URL'en.",
+  se: "Du skickas till tesla.com/sv_se. Värva vän registreras automatiskt i URL:en.",
 };
 
 export function LocalePage({ locale }: { locale: Locale }) {
   const c = CONTENT[locale];
   const url = REFERRAL_URLS[locale];
   const stats = STATS[locale];
-  const ticker = TICKER[locale];
   const offer = OFFER_HEADLINE[locale];
+  const reassurance = REASSURANCE[locale];
+  // Keep only 2 meaningful stats (trim generic SaaS wall)
+  const heroStats = stats.slice(0, 2);
 
   // Clean hero headline — remove the problematic split
   const heroHeadline = `${c.heroTitle} ${c.heroTitleAccent.replace(/[.]$/, "")}`;
@@ -142,33 +144,21 @@ export function LocalePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* STATS */}
-      <section className="px-6 pt-16 sm:px-10 sm:pt-20">
-        <div className="mx-auto max-w-[1280px]">
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 sm:gap-12">
-            {stats.map((s, i) => (
+      {/* STATS — tight, 2 meaningful metrics only */}
+      <section className="px-6 pt-20 sm:px-10 sm:pt-24">
+        <div className="mx-auto max-w-[1080px]">
+          <div className="grid grid-cols-2 gap-8 sm:gap-16">
+            {heroStats.map((s, i) => (
               <div key={i}>
-                <div className="text-[2.5rem] font-semibold tracking-tight tabular leading-none sm:text-[3rem]">
+                <div className="text-[3rem] font-semibold tracking-tight tabular leading-none sm:text-[3.5rem]">
                   {s.value}
                 </div>
-                <div className="mt-2 text-[12px] uppercase tracking-[0.1em] text-[--color-muted]">
+                <div className="mt-3 text-[13px] text-[--color-muted]">
                   {s.label}
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ACTIVITY TICKER */}
-      <section className="mt-24 overflow-hidden border-y border-[--color-line] py-5">
-        <div className="ticker text-[13px] text-[--color-muted]">
-          {[...ticker, ...ticker].map((t, i) => (
-            <span key={i} className="inline-flex items-center gap-3 whitespace-nowrap">
-              <span className="size-1 rounded-full bg-[--color-green]" />
-              {t}
-            </span>
-          ))}
         </div>
       </section>
 
@@ -317,7 +307,10 @@ export function LocalePage({ locale }: { locale: Locale }) {
             >
               {c.finalCtaButton} <span aria-hidden>→</span>
             </a>
-            <span className="inline-flex items-center gap-2 text-[12px] text-white/55">
+            <span className="max-w-sm text-[12px] leading-relaxed text-white/55">
+              {reassurance}
+            </span>
+            <span className="inline-flex items-center gap-2 text-[11px] text-white/45">
               <span className="live" />
               {c.verifiedPrefix} {LAST_VERIFIED}
             </span>
