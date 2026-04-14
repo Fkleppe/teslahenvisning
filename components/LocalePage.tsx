@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import {
   CONTENT,
   REFERRAL_URLS,
@@ -11,136 +11,57 @@ import {
   PROOF_LABEL,
   type Locale,
 } from "@/lib/content";
+import { JsonLd } from "./JsonLd";
 
 const IMG = {
-  hero: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=2400&q=85",
-  modelY: "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1600&q=85",
-  model3: "https://images.unsplash.com/photo-1554744512-d6c603f27c54?auto=format&fit=crop&w=1600&q=85",
-  modelS: "https://images.unsplash.com/photo-1571127236794-81c0bbfe1ce3?auto=format&fit=crop&w=1600&q=85",
-  modelX: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1600&q=85",
-  charge: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1200&q=85",
+  hero: "https://images.unsplash.com/photo-1617704548623-340376564e68?auto=format&fit=crop&w=2400&q=85",
+  modelY: "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1800&q=85",
+  model3: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1800&q=85",
+  modelS: "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?auto=format&fit=crop&w=1800&q=85",
+  modelX: "https://images.unsplash.com/photo-1623006772851-a8bb52cdf0eb?auto=format&fit=crop&w=1800&q=85",
+  finalCta: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=2400&q=85",
 };
 
-type CardProps = {
+type Card = {
   image: string;
-  eyebrow?: string;
   title: string;
   subtitle?: string;
-  primary: { label: string; href: string };
-  secondary?: { label: string; href: string };
+  primaryLabel: string;
+  secondaryLabel: string;
+  href: string;
   textColor?: "light" | "dark";
-  align?: "top" | "bottom";
-  height?: string;
 };
 
-function HeroCard({
-  image,
-  eyebrow,
-  title,
-  subtitle,
-  primary,
-  secondary,
-  textColor = "light",
-  align = "top",
-  height = "h-[80vh] min-h-[600px]",
-}: CardProps) {
+function MediaCard({ image, title, subtitle, primaryLabel, secondaryLabel, href, textColor = "light", height = "h-[640px]" }: Card & { height?: string }) {
   const text = textColor === "light" ? "text-white" : "text-[--color-foreground]";
-  const subText = textColor === "light" ? "text-white/85" : "text-[--color-muted]";
-
+  const sub = textColor === "light" ? "text-white/85" : "text-[--color-muted]";
   return (
-    <section className={`relative ${height} w-full overflow-hidden`}>
-      <Image src={image} alt="" fill priority sizes="100vw" className="object-cover" />
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer sponsored"
+      className={`group relative flex w-full overflow-hidden rounded-2xl ${height}`}
+    >
+      <Image
+        src={image}
+        alt=""
+        fill
+        sizes="(max-width: 1024px) 100vw, 720px"
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+      />
       {textColor === "light" && <div className="absolute inset-0 scrim-bottom" />}
 
-      <div
-        className={`relative z-10 flex h-full flex-col items-center px-6 ${
-          align === "top" ? "pt-24 sm:pt-32" : "pb-32 justify-end"
-        }`}
-      >
-        <div className={`fade-up text-center ${text}`}>
-          {eyebrow && (
-            <div className="mb-3 inline-flex items-center gap-2">
-              <span className="rounded-full bg-amber-400/95 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-black">
-                {eyebrow}
-              </span>
-            </div>
-          )}
-          <h1 className="card-title">{title}</h1>
-          {subtitle && <p className={`mt-2 card-sub ${subText}`}>{subtitle}</p>}
-        </div>
-
-        <div className="fade-up-2 mt-8 flex w-full max-w-md flex-col gap-3 sm:flex-row sm:max-w-xl">
-          <a
-            href={primary.href}
-            target="_blank"
-            rel="noopener noreferrer sponsored"
-            className="btn-dark inline-flex h-12 flex-1 items-center justify-center rounded-full px-6 text-[14px] font-medium tracking-wide uppercase transition"
-          >
-            {primary.label}
-          </a>
-          {secondary && (
-            <a
-              href={secondary.href}
-              className="btn-light inline-flex h-12 flex-1 items-center justify-center rounded-full px-6 text-[14px] font-medium tracking-wide uppercase transition"
-            >
-              {secondary.label}
-            </a>
-          )}
+      <div className="relative z-10 flex w-full flex-col items-center px-6 pt-12">
+        <div className={`text-center ${text}`}>
+          <h2 className="t-title">{title}</h2>
+          {subtitle && <p className={`mt-2 t-sub ${sub}`}>{subtitle}</p>}
         </div>
       </div>
 
-      {align === "top" && (
-        <div className="absolute inset-x-0 bottom-8 flex justify-center">
-          <ChevronDown className="size-7 text-white/80 animate-bounce" />
-        </div>
-      )}
-    </section>
-  );
-}
-
-function ProductCard({
-  image,
-  title,
-  subtitle,
-  primary,
-  secondary,
-  textColor = "light",
-  align = "top",
-}: CardProps) {
-  const text = textColor === "light" ? "text-white" : "text-[--color-foreground]";
-  const subText = textColor === "light" ? "text-white/85" : "text-[--color-muted]";
-
-  return (
-    <a
-      href={primary.href}
-      target="_blank"
-      rel="noopener noreferrer sponsored"
-      className="group relative flex h-[560px] w-full overflow-hidden rounded-2xl"
-    >
-      <Image src={image} alt="" fill sizes="(max-width: 1024px) 100vw, 700px" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
-      {textColor === "light" && <div className="absolute inset-0 scrim-bottom" />}
-
-      <div
-        className={`relative z-10 flex h-full w-full flex-col items-center px-6 ${
-          align === "top" ? "pt-12" : "pb-12 justify-end"
-        }`}
-      >
-        <div className={`text-center ${text}`}>
-          <h2 className="card-title">{title}</h2>
-          {subtitle && <p className={`mt-1.5 card-sub ${subText}`}>{subtitle}</p>}
-        </div>
-
-        <div className="mt-6 flex w-full max-w-sm flex-col gap-3 sm:flex-row">
-          <span
-            className="btn-dark inline-flex h-11 flex-1 items-center justify-center rounded-full px-5 text-[13px] font-medium tracking-wide uppercase"
-          >
-            {primary.label}
-          </span>
-          {secondary && (
-            <span className="btn-light inline-flex h-11 flex-1 items-center justify-center rounded-full px-5 text-[13px] font-medium tracking-wide uppercase">
-              {secondary.label}
-            </span>
-          )}
+      <div className="absolute inset-x-0 bottom-12 z-10 flex justify-center px-6">
+        <div className="flex w-full max-w-[28rem] flex-col gap-3 sm:flex-row">
+          <span className="t-btn t-btn-dark flex-1">{primaryLabel}</span>
+          <span className="t-btn t-btn-light flex-1">{secondaryLabel}</span>
         </div>
       </div>
     </a>
@@ -156,19 +77,20 @@ export function LocalePage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      {/* HEADER */}
+      <JsonLd locale={locale} />
+      {/* HEADER — Tesla.com floating, transparent */}
       <header className="absolute top-0 left-0 right-0 z-50">
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5">
-          <Link href={`/${locale}`} className="text-[15px] font-semibold tracking-tight text-white drop-shadow-sm">
+        <div className="mx-auto flex max-w-[1480px] items-center justify-between px-8 py-5">
+          <Link href={`/${locale}`} className="text-[14px] font-semibold tracking-[0.04em] text-white drop-shadow-sm">
             teslahenvisning
           </Link>
-          <nav className="flex items-center gap-1 text-[12px] font-medium uppercase tracking-wider text-white drop-shadow">
+          <nav className="flex items-center gap-1 text-[11px] font-medium uppercase tracking-[0.1em] text-white">
             {LOCALES.map((l) => (
               <Link
                 key={l}
                 href={`/${l}`}
                 className={`rounded-full px-3 py-1.5 transition ${
-                  l === locale ? "bg-white/20 backdrop-blur" : "hover:bg-white/10"
+                  l === locale ? "bg-white/15 backdrop-blur" : "hover:bg-white/10"
                 }`}
               >
                 {CONTENT[l].localeName}
@@ -179,78 +101,95 @@ export function LocalePage({ locale }: { locale: Locale }) {
       </header>
 
       {/* HERO */}
-      <HeroCard
-        image={IMG.hero}
-        eyebrow={c.adLabel}
-        title={c.heroTitle}
-        subtitle={c.heroSub}
-        primary={{ label: c.ctaPrimary, href: url }}
-        secondary={{ label: c.ctaSecondary, href: "#how" }}
-        textColor="light"
-        align="top"
-      />
+      <section className="relative h-[100vh] min-h-[640px] w-full overflow-hidden">
+        <Image src={IMG.hero} alt="" fill priority sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 scrim-bottom" />
 
-      {/* PRODUCT CARDS — 2 col */}
-      <section className="px-2 py-2 sm:px-3 sm:py-3">
-        <div className="grid grid-cols-1 gap-2 sm:gap-3 lg:grid-cols-2">
-          <ProductCard
+        <div className="relative z-10 flex h-full flex-col items-center px-6 pt-[18vh] pb-16">
+          <div className="fade-up text-center text-white">
+            <h1 className="t-title">{c.heroTitle}</h1>
+            <p className="mt-2 t-sub text-white/85">{c.heroTitleAccent}</p>
+          </div>
+
+          <div className="fade-up-2 mt-auto flex w-full max-w-[28rem] flex-col gap-3 sm:flex-row">
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="t-btn t-btn-dark flex-1"
+            >
+              {c.ctaPrimary}
+            </a>
+            <a href="#how" className="t-btn t-btn-light flex-1">
+              {c.ctaSecondary}
+            </a>
+          </div>
+
+          {/* Disclosure — small, subtle, inline at bottom */}
+          <div className="mt-4 flex items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-white/70">
+            <span className="rounded-full border border-white/40 px-2 py-0.5">{c.adLabel}</span>
+            <span>{c.verifiedPrefix} {LAST_VERIFIED}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* MODEL CARDS — 2x2 like tesla.com */}
+      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
+        <div className="grid gap-2 sm:gap-3 lg:grid-cols-2">
+          <MediaCard
             image={IMG.modelY}
             title={c.models[1].name}
-            subtitle={c.models[1].priceFrom + " · " + c.models[1].range}
-            primary={{ label: c.modelCta, href: url }}
-            secondary={{ label: "Detaljer", href: url }}
-            textColor="light"
-            align="top"
+            subtitle={`${c.models[1].priceFrom} · ${c.models[1].range}`}
+            primaryLabel={c.modelCta}
+            secondaryLabel="Detaljer"
+            href={url}
           />
-          <ProductCard
+          <MediaCard
             image={IMG.model3}
             title={c.models[0].name}
-            subtitle={c.models[0].priceFrom + " · " + c.models[0].range}
-            primary={{ label: c.modelCta, href: url }}
-            secondary={{ label: "Detaljer", href: url }}
-            textColor="light"
-            align="top"
+            subtitle={`${c.models[0].priceFrom} · ${c.models[0].range}`}
+            primaryLabel={c.modelCta}
+            secondaryLabel="Detaljer"
+            href={url}
           />
         </div>
       </section>
 
-      <section className="px-2 pb-2 sm:px-3 sm:pb-3">
-        <div className="grid grid-cols-1 gap-2 sm:gap-3 lg:grid-cols-2">
-          <ProductCard
+      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
+        <div className="grid gap-2 sm:gap-3 lg:grid-cols-2">
+          <MediaCard
             image={IMG.modelS}
             title={c.models[2].name}
-            subtitle={c.models[2].priceFrom + " · " + c.models[2].range}
-            primary={{ label: c.modelCta, href: url }}
-            secondary={{ label: "Detaljer", href: url }}
-            textColor="light"
-            align="top"
+            subtitle={`${c.models[2].priceFrom} · ${c.models[2].range}`}
+            primaryLabel={c.modelCta}
+            secondaryLabel="Detaljer"
+            href={url}
           />
-          <ProductCard
+          <MediaCard
             image={IMG.modelX}
             title={c.models[3].name}
-            subtitle={c.models[3].priceFrom + " · " + c.models[3].range}
-            primary={{ label: c.modelCta, href: url }}
-            secondary={{ label: "Detaljer", href: url }}
-            textColor="light"
-            align="top"
+            subtitle={`${c.models[3].priceFrom} · ${c.models[3].range}`}
+            primaryLabel={c.modelCta}
+            secondaryLabel="Detaljer"
+            href={url}
           />
         </div>
       </section>
 
-      {/* HOW IT WORKS — three light cards */}
-      <section id="how" className="px-2 pb-2 sm:px-3 sm:pb-3">
-        <div className="rounded-2xl bg-white px-6 py-16 sm:px-10 sm:py-24">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="card-title text-[--color-foreground]">{c.howTitle}</h2>
-            <p className="mt-3 text-[15px] text-[--color-muted]">{c.howSub}</p>
+      {/* HOW IT WORKS — clean white card, tesla.com style */}
+      <section id="how" className="px-2 pt-2 sm:px-3 sm:pt-3">
+        <div className="rounded-2xl bg-white px-6 py-20 sm:px-12 sm:py-28">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="t-title">{c.howTitle}</h2>
+            <p className="mt-3 t-sub text-[--color-muted]">{c.howSub}</p>
           </div>
-          <div className="mx-auto mt-12 grid max-w-5xl gap-6 sm:grid-cols-3">
+          <div className="mx-auto mt-16 grid max-w-5xl gap-12 sm:grid-cols-3">
             {c.steps.map((s, i) => (
-              <div key={i} className="rounded-xl bg-[--color-background] p-6">
-                <div className="text-5xl font-medium tracking-tighter text-[--color-foreground]">
-                  0{i + 1}
+              <div key={i} className="text-center">
+                <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-[--color-foreground] text-[14px] font-medium text-white">
+                  {i + 1}
                 </div>
-                <h3 className="mt-6 text-[18px] font-medium">{s.t}</h3>
+                <h3 className="mt-6 text-[17px] font-medium">{s.t}</h3>
                 <p className="mt-2 text-[14px] leading-relaxed text-[--color-muted]">{s.d}</p>
               </div>
             ))}
@@ -258,40 +197,14 @@ export function LocalePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* STATS — Tesla map-style row */}
-      <section className="px-2 pb-2 sm:px-3 sm:pb-3">
-        <div className="rounded-2xl bg-white px-6 py-12 sm:px-10 sm:py-14">
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+      {/* STATS */}
+      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
+        <div className="rounded-2xl bg-white px-6 py-14 sm:px-12">
+          <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
             {stats.map((s, i) => (
-              <div key={i}>
-                <div className="text-3xl font-medium tracking-tight sm:text-4xl">{s.value}</div>
-                <div className="mt-1.5 text-[13px] text-[--color-muted]">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* COMPARISON */}
-      <section className="px-2 pb-2 sm:px-3 sm:pb-3">
-        <div className="rounded-2xl bg-white px-6 py-16 sm:px-10 sm:py-24">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="card-title">{c.comparisonTitle}</h2>
-            <p className="mt-3 text-[15px] text-[--color-muted]">{c.comparisonSub}</p>
-          </div>
-          <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-xl bg-[--color-background]">
-            <div className="grid grid-cols-3">
-              <div className="px-5 py-4 text-[12px] font-medium uppercase tracking-wider text-[--color-muted]"></div>
-              <div className="px-5 py-4 text-[12px] font-medium uppercase tracking-wider text-[--color-muted]">{c.comparisonHeaders[1]}</div>
-              <div className="bg-[--color-foreground] px-5 py-4 text-[12px] font-medium uppercase tracking-wider text-white">{c.comparisonHeaders[2]}</div>
-            </div>
-            {c.comparisonRows.map((row, i) => (
-              <div key={i} className="grid grid-cols-3 border-t border-black/5">
-                <div className="px-5 py-4 text-[14px] font-medium">{row[0]}</div>
-                <div className="px-5 py-4 text-[14px] text-[--color-muted]">{row[1]}</div>
-                <div className="bg-[--color-foreground]/[0.04] px-5 py-4 text-[14px] font-medium">
-                  {row[2]}
-                </div>
+              <div key={i} className="text-center sm:text-left">
+                <div className="text-[2rem] font-medium tracking-tight sm:text-[2.5rem]">{s.value}</div>
+                <div className="mt-1 text-[12px] uppercase tracking-[0.08em] text-[--color-muted]">{s.label}</div>
               </div>
             ))}
           </div>
@@ -299,15 +212,15 @@ export function LocalePage({ locale }: { locale: Locale }) {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="px-2 pb-2 sm:px-3 sm:pb-3">
-        <div className="rounded-2xl bg-white px-6 py-16 sm:px-10 sm:py-24">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="card-title">{proof.title}</h2>
-            <p className="mt-3 text-[15px] text-[--color-muted]">{proof.sub}</p>
+      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
+        <div className="rounded-2xl bg-white px-6 py-20 sm:px-12 sm:py-28">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="t-title">{proof.title}</h2>
+            <p className="mt-3 t-sub text-[--color-muted]">{proof.sub}</p>
           </div>
-          <div className="mx-auto mt-12 grid max-w-6xl gap-6 sm:grid-cols-3">
+          <div className="mx-auto mt-14 grid max-w-6xl gap-3 sm:grid-cols-3">
             {testimonials.map((t, i) => (
-              <figure key={i} className="rounded-xl bg-[--color-background] p-7">
+              <figure key={i} className="rounded-2xl bg-[--color-surface] p-8">
                 <blockquote className="text-[15px] leading-relaxed">"{t.quote}"</blockquote>
                 <figcaption className="mt-6 flex items-center gap-3">
                   <div className="flex size-9 items-center justify-center rounded-full bg-[--color-foreground] text-[12px] font-medium text-white">
@@ -324,17 +237,41 @@ export function LocalePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
+      {/* COMPARISON */}
+      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
+        <div className="rounded-2xl bg-white px-6 py-20 sm:px-12 sm:py-28">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="t-title">{c.comparisonTitle}</h2>
+            <p className="mt-3 t-sub text-[--color-muted]">{c.comparisonSub}</p>
+          </div>
+          <div className="mx-auto mt-14 max-w-3xl overflow-hidden rounded-xl">
+            <div className="grid grid-cols-3">
+              <div></div>
+              <div className="px-6 py-4 text-center text-[11px] font-medium uppercase tracking-[0.1em] text-[--color-muted]">{c.comparisonHeaders[1]}</div>
+              <div className="rounded-t-lg bg-[--color-foreground] px-6 py-4 text-center text-[11px] font-medium uppercase tracking-[0.1em] text-white">{c.comparisonHeaders[2]}</div>
+            </div>
+            {c.comparisonRows.map((row, i) => (
+              <div key={i} className="grid grid-cols-3 border-t border-[--color-line]">
+                <div className="px-6 py-5 text-[14px] font-medium">{row[0]}</div>
+                <div className="px-6 py-5 text-center text-[14px] text-[--color-muted]">{row[1]}</div>
+                <div className="bg-[--color-surface] px-6 py-5 text-center text-[14px] font-medium">{row[2]}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
-      <section className="px-2 pb-2 sm:px-3 sm:pb-3">
-        <div className="rounded-2xl bg-white px-6 py-16 sm:px-10 sm:py-24">
+      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
+        <div className="rounded-2xl bg-white px-6 py-20 sm:px-12 sm:py-28">
           <div className="mx-auto max-w-3xl">
             <div className="text-center">
-              <h2 className="card-title">{c.faqTitle}</h2>
-              <p className="mt-3 text-[15px] text-[--color-muted]">{c.faqSub}</p>
+              <h2 className="t-title">{c.faqTitle}</h2>
+              <p className="mt-3 t-sub text-[--color-muted]">{c.faqSub}</p>
             </div>
             <div className="mt-12">
               {c.faqs.map((f, i) => (
-                <details key={i} className="group border-b border-black/8">
+                <details key={i} className="group border-b border-[--color-line]">
                   <summary className="flex cursor-pointer items-center justify-between gap-4 py-5">
                     <span className="text-[16px] font-medium">{f.q}</span>
                     <Plus className="size-4 shrink-0 text-[--color-muted] transition-transform group-open:rotate-45" />
@@ -347,46 +284,27 @@ export function LocalePage({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* FINAL CTA — Tesla-style image card */}
-      <section className="px-2 pb-2 sm:px-3 sm:pb-3">
-        <div className="relative h-[600px] overflow-hidden rounded-2xl">
-          <Image src={IMG.hero} alt="" fill sizes="100vw" className="object-cover" />
-          <div className="absolute inset-0 scrim-bottom" />
-          <div className="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-16 text-white">
-            <h2 className="card-title text-center">{c.finalCta}</h2>
-            <p className="mt-3 max-w-md text-center card-sub text-white/85">{c.finalCtaSub}</p>
-            <div className="mt-7 flex w-full max-w-md flex-col gap-3 sm:flex-row">
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                className="btn-dark inline-flex h-12 flex-1 items-center justify-center rounded-full px-6 text-[14px] font-medium uppercase tracking-wide transition"
-              >
-                {c.finalCtaButton}
-              </a>
-              <a
-                href="#how"
-                className="btn-light inline-flex h-12 flex-1 items-center justify-center rounded-full px-6 text-[14px] font-medium uppercase tracking-wide transition"
-              >
-                {c.ctaSecondary}
-              </a>
-            </div>
-            <div className="mt-5 text-[11px] uppercase tracking-wider text-white/65">
-              <span className="mr-1.5 inline-block size-1.5 translate-y-[-1px] rounded-full bg-emerald-400 align-middle" />
-              {c.verifiedPrefix} {LAST_VERIFIED}
-            </div>
-          </div>
-        </div>
+      {/* FINAL CTA */}
+      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
+        <MediaCard
+          image={IMG.finalCta}
+          title={c.finalCta}
+          subtitle={c.finalCtaSub}
+          primaryLabel={c.finalCtaButton}
+          secondaryLabel={c.ctaSecondary}
+          href={url}
+          height="h-[640px]"
+        />
       </section>
 
       {/* FOOTER */}
-      <footer className="px-2 pb-2 sm:px-3 sm:pb-3">
-        <div className="rounded-2xl bg-white px-6 py-10 sm:px-10">
-          <div className="flex flex-wrap items-start justify-between gap-6 pb-8">
-            <Link href={`/${locale}`} className="text-[14px] font-semibold">
+      <footer className="px-2 pt-2 pb-2 sm:px-3 sm:pt-3 sm:pb-3">
+        <div className="rounded-2xl bg-white px-6 py-12 sm:px-12">
+          <div className="flex flex-wrap items-center justify-between gap-6 pb-8">
+            <Link href={`/${locale}`} className="text-[14px] font-semibold tracking-tight">
               teslahenvisning.com
             </Link>
-            <div className="flex gap-6 text-[13px]">
+            <div className="flex gap-6 text-[12px] uppercase tracking-[0.08em]">
               {LOCALES.map((l) => (
                 <Link
                   key={l}
@@ -398,7 +316,7 @@ export function LocalePage({ locale }: { locale: Locale }) {
               ))}
             </div>
           </div>
-          <div className="border-t border-black/8 pt-6 text-[11px] leading-relaxed text-[--color-muted-2]">
+          <div className="border-t border-[--color-line] pt-6 text-[11px] leading-relaxed text-[--color-muted-2]">
             <p className="max-w-4xl">{c.disclaimer}</p>
             <p className="mt-3">© {new Date().getFullYear()} teslahenvisning.com</p>
           </div>
