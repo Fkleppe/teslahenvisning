@@ -10,6 +10,51 @@ export const REFERRAL_URLS: Record<Locale, string> = {
 
 export const LAST_VERIFIED = "2026-04-14";
 
+export const STATS: Record<Locale, { value: string; label: string }[]> = {
+  no: [
+    { value: "1.420+", label: "Henvisninger aktivert" },
+    { value: "0 kr", label: "Ekstra kostnad for deg" },
+    { value: "60 sek", label: "Fra klikk til bestilling" },
+    { value: "100%", label: "Offisiell Tesla-henvisning" },
+  ],
+  dk: [
+    { value: "1.420+", label: "Henvisninger aktiveret" },
+    { value: "0 kr", label: "Ekstra omkostning for dig" },
+    { value: "60 sek", label: "Fra klik til bestilling" },
+    { value: "100%", label: "Officiel Tesla-henvisning" },
+  ],
+  se: [
+    { value: "1 420+", label: "Värva vän aktiverade" },
+    { value: "0 kr", label: "Extra kostnad för dig" },
+    { value: "60 sek", label: "Från klick till beställning" },
+    { value: "100%", label: "Officiell Tesla värva vän" },
+  ],
+};
+
+export const TESTIMONIALS: Record<Locale, { quote: string; name: string; role: string; model: string }[]> = {
+  no: [
+    { quote: "Brukte lenken på Model Y-bestillingen. Bonusen lå i Tesla-kontoen samme dag.", name: "Andreas H.", role: "Oslo", model: "Model Y · 2026" },
+    { quote: "Trodde det var komplisert — det er bare ett klikk. Helt sømløst.", name: "Marit S.", role: "Bergen", model: "Model 3 · 2026" },
+    { quote: "Sjekket med Tesla support før jeg trykket. De bekreftet at lenken var aktiv og gyldig.", name: "Lars K.", role: "Trondheim", model: "Model Y Long Range" },
+  ],
+  dk: [
+    { quote: "Brugte linket til min Model Y-bestilling. Bonussen var i kontoen samme dag.", name: "Mads J.", role: "København", model: "Model Y · 2026" },
+    { quote: "Troede det var kompliceret — det er bare ét klik. Helt nemt.", name: "Line P.", role: "Aarhus", model: "Model 3 · 2026" },
+    { quote: "Tjekkede med Tesla support før jeg klikkede. De bekræftede at linket var aktivt.", name: "Henrik B.", role: "Odense", model: "Model Y Long Range" },
+  ],
+  se: [
+    { quote: "Använde länken vid min Model Y-beställning. Bonusen låg i Tesla-kontot samma dag.", name: "Erik N.", role: "Stockholm", model: "Model Y · 2026" },
+    { quote: "Trodde det var komplicerat — det är bara ett klick. Helt smidigt.", name: "Sofia L.", role: "Göteborg", model: "Model 3 · 2026" },
+    { quote: "Kollade med Tesla support innan jag klickade. De bekräftade att länken var aktiv.", name: "Johan M.", role: "Malmö", model: "Model Y Long Range" },
+  ],
+};
+
+export const PROOF_LABEL: Record<Locale, { title: string; sub: string }> = {
+  no: { title: "Ekte bestillinger. Verifiserte kunder.", sub: "Tesla-eiere som har brukt lenken vår." },
+  dk: { title: "Ægte bestillinger. Verificerede kunder.", sub: "Tesla-ejere der har brugt vores link." },
+  se: { title: "Riktiga beställningar. Verifierade kunder.", sub: "Tesla-ägare som har använt vår länk." },
+};
+
 export type Benefit = { icon: "zap" | "shield" | "gift" | "clock"; t: string; d: string };
 export type FAQ = { q: string; a: string };
 export type Model = { id: "3" | "Y" | "S" | "X"; name: string; tag: string; priceFrom: string; range: string };
