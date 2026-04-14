@@ -1,8 +1,16 @@
-import Link from "next/link";
 import { CONTENT, REFERRAL_URLS, LAST_VERIFIED, type Locale } from "@/lib/content";
-import { CodeChip } from "./CodeChip";
-import { LocaleNav } from "./LocaleNav";
-import { ArrowUpRight } from "lucide-react";
+import { CTAButton } from "./CTAButton";
+import { Header } from "./Header";
+import {
+  WhySection,
+  HowSection,
+  ComparisonSection,
+  ModelsSection,
+  FaqSection,
+  FinalCTA,
+  Footer,
+} from "./Sections";
+import { Check } from "lucide-react";
 
 export function LocalePage({ locale }: { locale: Locale }) {
   const c = CONTENT[locale];
@@ -10,81 +18,67 @@ export function LocalePage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/5 bg-black/60 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link href={`/${locale}`} className="font-semibold tracking-tight">
-            teslahenvisning<span className="text-[--color-accent]">.</span>com
-          </Link>
-          <LocaleNav current={locale} />
-        </div>
-      </header>
+      <Header current={locale} />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden grid-bg">
-        <div className="mx-auto max-w-6xl px-6 pt-20 pb-28 sm:pt-28 sm:pb-36">
-          <div className="mb-6 inline-flex items-center gap-2">
-            <span className="rounded-full border border-amber-500/40 bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-amber-300">
+      {/* HERO */}
+      <section className="relative overflow-hidden">
+        <div className="mesh" />
+        <div className="grid-lines" />
+        <div className="noise" />
+        <div className="relative mx-auto max-w-6xl px-6 pt-24 pb-32 sm:pt-32 sm:pb-40">
+          <div className="fade-up mb-6 inline-flex items-center gap-2">
+            <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-300">
               {c.adLabel}
             </span>
-            <span className="text-xs uppercase tracking-[0.2em] text-white/50">
+            <span className="rounded-full border border-[--color-border] bg-[--color-background-elev]/80 px-3 py-1 text-xs text-[--color-muted] backdrop-blur">
               {c.heroEyebrow}
             </span>
           </div>
 
-          <h1 className="max-w-3xl text-5xl font-semibold leading-[1.05] tracking-tight sm:text-7xl">
-            {c.heroTitle}
+          <h1 className="fade-up-2 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-tight sm:text-7xl">
+            {c.heroTitle}{" "}
+            <span className="gradient-text">{c.heroTitleAccent}</span>
           </h1>
-          <p className="mt-6 max-w-2xl text-lg text-white/60 sm:text-xl">{c.heroSub}</p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <CodeChip copyLabel={c.copy} copiedLabel={c.copied} />
+          <p className="fade-up-3 mt-6 max-w-2xl text-lg leading-relaxed text-[--color-muted] sm:text-xl">
+            {c.heroSub}
+          </p>
+
+          <div className="fade-up-4 mt-10 flex flex-wrap items-center gap-4">
+            <CTAButton href={url} label={c.ctaPrimary} secured={c.secured} />
             <a
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer sponsored"
-              className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.02] px-6 py-4 text-sm font-medium transition-colors hover:border-white/30 hover:bg-white/[0.06]"
+              href="#how"
+              className="inline-flex items-center gap-2 rounded-full border border-[--color-border] bg-[--color-background-elev]/60 px-5 py-3.5 text-sm font-medium backdrop-blur transition-colors hover:border-[--color-border-strong] hover:bg-[--color-background-elev]"
             >
-              {c.ctaOpen}
-              <ArrowUpRight className="size-4" />
+              {c.ctaSecondary}
             </a>
           </div>
 
-          <div className="mt-8 flex items-center gap-2 text-xs text-white/40">
-            <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            {c.verifiedPrefix} {LAST_VERIFIED}
-          </div>
-        </div>
-      </section>
-
-      {/* How to use */}
-      <section className="border-t border-white/5">
-        <div className="mx-auto max-w-6xl px-6 py-24">
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">{c.howTitle}</h2>
-          <div className="mt-12 grid gap-6 sm:grid-cols-3">
-            {c.steps.map((s, i) => (
-              <div
-                key={i}
-                className="group rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition-colors hover:border-white/20"
-              >
-                <div className="mb-4 text-xs font-mono text-[--color-accent]">
-                  0{i + 1}
-                </div>
-                <div className="text-lg font-medium">{s.t}</div>
-                <div className="mt-2 text-sm text-white/60">{s.d}</div>
+          <div className="fade-up-4 mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-[--color-muted]">
+            <div className="flex items-center gap-2">
+              <span className="relative flex size-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/70 opacity-75" />
+                <span className="relative inline-flex size-1.5 rounded-full bg-emerald-400" />
+              </span>
+              {c.verifiedPrefix} {LAST_VERIFIED}
+            </div>
+            {c.trustRow.map((t) => (
+              <div key={t} className="flex items-center gap-1.5">
+                <Check className="size-3 text-[--color-brand-3]" strokeWidth={2.5} />
+                {t}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="mt-auto border-t border-white/5">
-        <div className="mx-auto max-w-6xl px-6 py-10 text-xs text-white/40">
-          <p className="max-w-3xl">{c.disclaimer}</p>
-          <p className="mt-4">© {new Date().getFullYear()} teslahenvisning.com</p>
-        </div>
-      </footer>
+      <WhySection c={c} />
+      <HowSection c={c} />
+      <ComparisonSection c={c} />
+      <ModelsSection c={c} url={url} />
+      <FaqSection c={c} />
+      <FinalCTA c={c} url={url} />
+      <Footer c={c} />
     </>
   );
 }
