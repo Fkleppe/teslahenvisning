@@ -9,6 +9,205 @@ export const REFERRAL_URLS: Record<Locale, string> = {
 };
 
 export const LAST_VERIFIED = "2026-04-14";
+export const ACTIVE_SINCE = "2022";
+
+export const NAV: Record<Locale, { label: string; href: string }[]> = {
+  no: [
+    { label: "Slik fungerer det", href: "#how" },
+    { label: "Modeller", href: "#models" },
+    { label: "Bonus", href: "#bonus" },
+    { label: "Guide", href: "#guide" },
+    { label: "Om", href: "#about" },
+    { label: "FAQ", href: "#faq" },
+  ],
+  dk: [
+    { label: "Sådan virker det", href: "#how" },
+    { label: "Modeller", href: "#models" },
+    { label: "Bonus", href: "#bonus" },
+    { label: "Guide", href: "#guide" },
+    { label: "Om", href: "#about" },
+    { label: "FAQ", href: "#faq" },
+  ],
+  se: [
+    { label: "Så fungerar det", href: "#how" },
+    { label: "Modeller", href: "#models" },
+    { label: "Bonus", href: "#bonus" },
+    { label: "Guide", href: "#guide" },
+    { label: "Om", href: "#about" },
+    { label: "FAQ", href: "#faq" },
+  ],
+};
+
+export const BONUS_INFO: Record<Locale, { title: string; intro: string; points: { k: string; v: string }[]; note: string }> = {
+  no: {
+    title: "Hva er den aktive henvisningsbonusen?",
+    intro: "Tesla endrer henvisningsprogrammet sitt jevnlig — noen ganger hvert kvartal. Her er det vi vet om det aktive tilbudet akkurat nå.",
+    points: [
+      { k: "Type bonus", v: "Gratis Supercharger-kilometer aktivert ved levering" },
+      { k: "Aktiveringsform", v: "Automatisk via URL — ingen kode eller skjema" },
+      { k: "Kvalifiserende kjøp", v: "Nye Model 3, Y, S, X — inkludert privatleasing" },
+      { k: "Unntak", v: "Brukte biler fra Tesla-lager og demo-biler er unntatt" },
+      { k: "Gyldighet", v: "Bonusen aktiveres ved delivery, ikke ved bestilling" },
+    ],
+    note: "Det eksakte antall kilometer endrer seg — Tesla viser den aktive kampanjen i bestillingsflyten. Vi oppdaterer denne siden hver gang programmet endres.",
+  },
+  dk: {
+    title: "Hvad er den aktuelle henvisningsbonus?",
+    intro: "Tesla ændrer henvisningsprogrammet regelmæssigt — nogle gange hvert kvartal. Her er hvad vi ved om det aktive tilbud lige nu.",
+    points: [
+      { k: "Type bonus", v: "Gratis Supercharger-kilometer aktiveret ved levering" },
+      { k: "Aktiveringsform", v: "Automatisk via URL — ingen kode eller formular" },
+      { k: "Kvalificerende køb", v: "Nye Model 3, Y, S, X — inklusive privatleasing" },
+      { k: "Undtagelser", v: "Brugte biler fra Tesla-lager og demobiler er undtaget" },
+      { k: "Gyldighed", v: "Bonussen aktiveres ved levering, ikke ved bestilling" },
+    ],
+    note: "Det eksakte antal kilometer ændrer sig — Tesla viser den aktive kampagne i bestillingsflowet. Vi opdaterer siden når programmet ændres.",
+  },
+  se: {
+    title: "Vad är den aktuella värva vän-bonusen?",
+    intro: "Tesla ändrar värva vän-programmet regelbundet — ibland varje kvartal. Här är vad vi vet om det aktiva erbjudandet just nu.",
+    points: [
+      { k: "Typ av bonus", v: "Gratis Supercharger-kilometer aktiverade vid leverans" },
+      { k: "Aktiveringsform", v: "Automatiskt via URL — ingen kod eller formulär" },
+      { k: "Kvalificerande köp", v: "Nya Model 3, Y, S, X — inklusive privatleasing" },
+      { k: "Undantag", v: "Begagnade bilar från Tesla-lager och demobilar är undantagna" },
+      { k: "Giltighet", v: "Bonusen aktiveras vid leverans, inte vid beställning" },
+    ],
+    note: "Exakt antal kilometer varierar — Tesla visar den aktiva kampanjen i beställningsflödet. Vi uppdaterar sidan när programmet ändras.",
+  },
+};
+
+export const GUIDE: Record<Locale, { title: string; intro: string; items: { title: string; body: string }[] }> = {
+  no: {
+    title: "Tesla-guide for Norge",
+    intro: "Det finnes noen norske særegenheter du bør vite om før du bestiller — moms, engangsavgift, trafikkforsikringsavgift, og leveringstid.",
+    items: [
+      {
+        title: "Ingen moms — men trafikkforsikringsavgift",
+        body: "Elbiler har vært fritatt for merverdiavgift i Norge under visse terskler. Fra 2023 ble det innført moms på elbiler over 500 000 kr — kun på beløpet over denne grensen. Tesla Model Y og Model 3 i basis-konfigurasjon ligger ofte rett under eller rett over grensen, så konfigurasjonen din påvirker sluttprisen.",
+      },
+      {
+        title: "Engangsavgift er fjernet",
+        body: "Nye elbiler slipper engangsavgiften — dette er en av hovedgrunnene til at elbilen har tatt over 80% markedsandel i Norge. Henvisningsbonusen kommer på toppen av dette, ikke i stedet for.",
+      },
+      {
+        title: "Leveringstider 2026",
+        body: "Tesla leverer fra fabrikken i Berlin (Model Y for Europa) og Shanghai. Typisk leveringstid fra norsk bestilling: 6–12 uker avhengig av konfigurasjon. Model S og X importeres fra USA og tar lengre tid.",
+      },
+      {
+        title: "Supercharger-nettet",
+        body: "Norge har 80+ Supercharger-stasjoner med over 900 ladepunkter — ett av de tetteste nettene i verden per innbygger. Din henvisningsbonus gir deg gratis kilometer her.",
+      },
+    ],
+  },
+  dk: {
+    title: "Tesla-guide for Danmark",
+    intro: "Der er nogle danske særpreg du bør kende til før bestilling — registreringsafgift, ejerafgift og leveringstid.",
+    items: [
+      {
+        title: "Reduceret registreringsafgift",
+        body: "Elbiler har reduceret registreringsafgift i Danmark. Afgiften trappes gradvist op mod 2035 — men elbiler er fortsat markant billigere end tilsvarende forbrændingsmotor-biler.",
+      },
+      {
+        title: "Grøn ejerafgift",
+        body: "Tesla-modeller ligger i laveste klasse for grøn ejerafgift — typisk 330 kr i halvåret for Model 3 og Y.",
+      },
+      {
+        title: "Leveringstider 2026",
+        body: "Tesla leverer primært fra Berlin for danske kunder. Typisk leveringstid: 4–10 uger afhængigt af konfiguration. Model S og X importeres fra USA.",
+      },
+      {
+        title: "Supercharger-netværk",
+        body: "Danmark har 30+ Supercharger-stationer fordelt strategisk langs motorvejene — E20, E45, E55. Din henvisningsbonus giver dig gratis kilometer her.",
+      },
+    ],
+  },
+  se: {
+    title: "Tesla-guide för Sverige",
+    intro: "Det finns några svenska särdrag att känna till innan du beställer — klimatbonus-historik, förmånsvärde och leveranstid.",
+    items: [
+      {
+        title: "Klimatbonus historik",
+        body: "Sverige hade tidigare en klimatbonus på upp till 70 000 kr för elbilsköp. Denna avskaffades november 2022. Tesla-priserna har sedan dess sjunkit kraftigt för att kompensera — ofta mer än bonusen utgjorde.",
+      },
+      {
+        title: "Förmånsvärde för tjänstebil",
+        body: "Tesla Model 3 och Y har särskilt fördelaktigt förmånsvärde som tjänstebil i Sverige. Ett nedsatt förmånsvärde fortsätter att gälla för elbilar.",
+      },
+      {
+        title: "Leveranstider 2026",
+        body: "Tesla levererar primärt från Berlin för svenska kunder. Typisk leveranstid: 5–11 veckor beroende på konfiguration. Model S och X importeras från USA.",
+      },
+      {
+        title: "Supercharger-nätverk",
+        body: "Sverige har 50+ Supercharger-stationer längs E4, E6, E18 och E20 — hela vägen från Malmö till Luleå. Din värva vän-bonus ger dig gratis kilometer här.",
+      },
+    ],
+  },
+};
+
+export const ABOUT: Record<Locale, { title: string; body: string; points: string[] }> = {
+  no: {
+    title: "Om teslahenvisning.com",
+    body: "Dette er en personlig henvisningslenke drevet av én Tesla-eier i Skandinavia. Jeg har kjørt Tesla siden 2022 og hjelper andre få den samme bonusen jeg selv fikk da jeg bestilte.",
+    points: [
+      "Aktiv Tesla-henvisning siden 2022",
+      "Ingen tilknytning til Tesla, Inc. — dette er en personlig service",
+      "Ingen cookies, ingen tracking på denne siden — kun henvisning via URL",
+      "Lenken oppdateres jevnlig når Tesla endrer henvisningsprogrammet",
+    ],
+  },
+  dk: {
+    title: "Om teslahenvisning.com",
+    body: "Dette er et personligt henvisningslink drevet af én Tesla-ejer i Skandinavien. Jeg har kørt Tesla siden 2022 og hjælper andre med at få den samme bonus jeg selv fik ved min bestilling.",
+    points: [
+      "Aktiv Tesla-henvisning siden 2022",
+      "Ingen tilknytning til Tesla, Inc. — dette er en personlig service",
+      "Ingen cookies, ingen tracking på denne side — kun henvisning via URL",
+      "Linket opdateres regelmæssigt når Tesla ændrer henvisningsprogrammet",
+    ],
+  },
+  se: {
+    title: "Om teslahenvisning.com",
+    body: "Detta är en personlig värva vän-länk driven av en Tesla-ägare i Skandinavien. Jag har kört Tesla sedan 2022 och hjälper andra få samma bonus som jag själv fick vid min beställning.",
+    points: [
+      "Aktiv Tesla värva vän sedan 2022",
+      "Ingen anslutning till Tesla, Inc. — detta är en personlig tjänst",
+      "Inga cookies, ingen tracking på denna sida — endast värva vän via URL",
+      "Länken uppdateras regelbundet när Tesla ändrar programmet",
+    ],
+  },
+};
+
+export const RESOURCES: Record<Locale, { title: string; links: { label: string; desc: string; href: string }[] }> = {
+  no: {
+    title: "Nyttige ressurser",
+    links: [
+      { label: "Tesla Norge", desc: "Offisiell tesla.com/no_no", href: "https://www.tesla.com/no_no" },
+      { label: "Supercharger-kart", desc: "Finn nærmeste Supercharger", href: "https://www.tesla.com/no_no/findus?location=supercharger" },
+      { label: "Norsk Elbilforening", desc: "Uavhengig info om elbilisme", href: "https://elbil.no" },
+      { label: "Statens Vegvesen", desc: "Registrering og avgifter", href: "https://www.vegvesen.no" },
+    ],
+  },
+  dk: {
+    title: "Nyttige ressourcer",
+    links: [
+      { label: "Tesla Danmark", desc: "Officielle tesla.com/da_dk", href: "https://www.tesla.com/da_dk" },
+      { label: "Supercharger-kort", desc: "Find nærmeste Supercharger", href: "https://www.tesla.com/da_dk/findus?location=supercharger" },
+      { label: "FDM", desc: "Uafhængig bilinformation", href: "https://fdm.dk" },
+      { label: "Motorstyrelsen", desc: "Registrering og afgifter", href: "https://motorst.dk" },
+    ],
+  },
+  se: {
+    title: "Användbara resurser",
+    links: [
+      { label: "Tesla Sverige", desc: "Officiell tesla.com/sv_se", href: "https://www.tesla.com/sv_se" },
+      { label: "Supercharger-karta", desc: "Hitta närmaste Supercharger", href: "https://www.tesla.com/sv_se/findus?location=supercharger" },
+      { label: "BilSweden", desc: "Statistik och branschinfo", href: "https://bilsweden.se" },
+      { label: "Transportstyrelsen", desc: "Registrering och skatter", href: "https://transportstyrelsen.se" },
+    ],
+  },
+};
 
 export const STATS: Record<Locale, { value: string; label: string }[]> = {
   no: [
