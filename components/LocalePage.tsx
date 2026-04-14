@@ -1,96 +1,41 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { ArrowRight, Plus, Check } from "lucide-react";
 import {
   CONTENT,
   REFERRAL_URLS,
   LAST_VERIFIED,
   LOCALES,
-  STATS,
-  TESTIMONIALS,
-  PROOF_LABEL,
   type Locale,
 } from "@/lib/content";
 import { JsonLd } from "./JsonLd";
 
-const IMG = {
-  hero: "https://images.unsplash.com/photo-1617704548623-340376564e68?auto=format&fit=crop&w=2400&q=85",
-  modelY: "https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1800&q=85",
-  model3: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1800&q=85",
-  modelS: "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?auto=format&fit=crop&w=1800&q=85",
-  modelX: "https://images.unsplash.com/photo-1623006772851-a8bb52cdf0eb?auto=format&fit=crop&w=1800&q=85",
-  finalCta: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=2400&q=85",
-};
-
-type Card = {
-  image: string;
-  title: string;
-  subtitle?: string;
-  primaryLabel: string;
-  secondaryLabel: string;
-  href: string;
-  textColor?: "light" | "dark";
-};
-
-function MediaCard({ image, title, subtitle, primaryLabel, secondaryLabel, href, textColor = "light", height = "h-[640px]" }: Card & { height?: string }) {
-  const text = textColor === "light" ? "text-white" : "text-[--color-foreground]";
-  const sub = textColor === "light" ? "text-white/85" : "text-[--color-muted]";
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer sponsored"
-      className={`group relative flex w-full overflow-hidden rounded-2xl ${height}`}
-    >
-      <Image
-        src={image}
-        alt=""
-        fill
-        sizes="(max-width: 1024px) 100vw, 720px"
-        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-      />
-      {textColor === "light" && <div className="absolute inset-0 scrim-bottom" />}
-
-      <div className="relative z-10 flex w-full flex-col items-center px-6 pt-12">
-        <div className={`text-center ${text}`}>
-          <h2 className="t-title">{title}</h2>
-          {subtitle && <p className={`mt-2 t-sub ${sub}`}>{subtitle}</p>}
-        </div>
-      </div>
-
-      <div className="absolute inset-x-0 bottom-12 z-10 flex justify-center px-6">
-        <div className="flex w-full max-w-[28rem] flex-col gap-3 sm:flex-row">
-          <span className="t-btn t-btn-dark flex-1">{primaryLabel}</span>
-          <span className="t-btn t-btn-light flex-1">{secondaryLabel}</span>
-        </div>
-      </div>
-    </a>
-  );
-}
+const HERO_IMG =
+  "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1600&q=85";
 
 export function LocalePage({ locale }: { locale: Locale }) {
   const c = CONTENT[locale];
   const url = REFERRAL_URLS[locale];
-  const stats = STATS[locale];
-  const testimonials = TESTIMONIALS[locale];
-  const proof = PROOF_LABEL[locale];
 
   return (
     <>
       <JsonLd locale={locale} />
-      {/* HEADER — Tesla.com floating, transparent */}
-      <header className="absolute top-0 left-0 right-0 z-50">
-        <div className="mx-auto flex max-w-[1480px] items-center justify-between px-8 py-5">
-          <Link href={`/${locale}`} className="text-[14px] font-semibold tracking-[0.04em] text-white drop-shadow-sm">
-            teslahenvisning
+
+      {/* HEADER */}
+      <header className="sticky top-0 z-50 border-b border-[--color-line] bg-white/85 backdrop-blur-md">
+        <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
+          <Link href={`/${locale}`} className="text-[14px] font-semibold tracking-tight">
+            teslahenvisning<span className="text-[--color-muted-2]">.com</span>
           </Link>
-          <nav className="flex items-center gap-1 text-[11px] font-medium uppercase tracking-[0.1em] text-white">
+          <nav className="flex items-center gap-1 text-[13px]">
             {LOCALES.map((l) => (
               <Link
                 key={l}
                 href={`/${l}`}
-                className={`rounded-full px-3 py-1.5 transition ${
-                  l === locale ? "bg-white/15 backdrop-blur" : "hover:bg-white/10"
+                className={`rounded-md px-2.5 py-1 transition ${
+                  l === locale
+                    ? "text-[--color-foreground] font-medium"
+                    : "text-[--color-muted] hover:text-[--color-foreground]"
                 }`}
               >
                 {CONTENT[l].localeName}
@@ -100,226 +45,214 @@ export function LocalePage({ locale }: { locale: Locale }) {
         </div>
       </header>
 
-      {/* HERO */}
-      <section className="relative h-[100vh] min-h-[640px] w-full overflow-hidden">
-        <Image src={IMG.hero} alt="" fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 scrim-bottom" />
-
-        <div className="relative z-10 flex h-full flex-col items-center px-6 pt-[18vh] pb-16">
-          <div className="fade-up text-center text-white">
-            <h1 className="t-title">{c.heroTitle}</h1>
-            <p className="mt-2 t-sub text-white/85">{c.heroTitleAccent}</p>
+      <main className="mx-auto max-w-3xl px-6">
+        {/* HERO */}
+        <section className="pt-20 pb-16 sm:pt-28 sm:pb-20">
+          <div className="fade-up mb-6 inline-flex items-center gap-2">
+            <span className="rounded-full border border-[--color-line-strong] px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[--color-muted]">
+              {c.adLabel}
+            </span>
+            <span className="text-[12px] text-[--color-muted]">{c.heroEyebrow}</span>
           </div>
 
-          <div className="fade-up-2 mt-auto flex w-full max-w-[28rem] flex-col gap-3 sm:flex-row">
+          <h1 className="fade-up-2 text-[2.5rem] font-semibold leading-[1.05] tracking-[-0.02em] sm:text-[3.5rem]">
+            {c.heroTitle}{" "}
+            <span className="text-[--color-muted]">{c.heroTitleAccent}</span>
+          </h1>
+
+          <p className="fade-up-3 mt-6 max-w-xl text-[16px] leading-relaxed text-[--color-muted] sm:text-[17px]">
+            {c.heroSub}
+          </p>
+
+          <div className="fade-up-3 mt-8 flex flex-wrap items-center gap-3">
             <a
               href={url}
               target="_blank"
               rel="noopener noreferrer sponsored"
-              className="t-btn t-btn-dark flex-1"
+              className="group inline-flex items-center gap-2 rounded-full bg-[--color-foreground] px-5 py-3 text-[14px] font-medium text-white transition hover:bg-black"
             >
               {c.ctaPrimary}
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
             </a>
-            <a href="#how" className="t-btn t-btn-light flex-1">
-              {c.ctaSecondary}
+            <a
+              href="#how"
+              className="text-[14px] font-medium text-[--color-muted] hover:text-[--color-foreground] transition"
+            >
+              {c.ctaSecondary} →
             </a>
           </div>
 
-          {/* Disclosure — small, subtle, inline at bottom */}
-          <div className="mt-4 flex items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-white/70">
-            <span className="rounded-full border border-white/40 px-2 py-0.5">{c.adLabel}</span>
-            <span>{c.verifiedPrefix} {LAST_VERIFIED}</span>
+          <div className="mt-6 inline-flex items-center gap-2 text-[12px] text-[--color-muted]">
+            <span className="size-1.5 rounded-full bg-emerald-500" />
+            {c.verifiedPrefix} {LAST_VERIFIED}
           </div>
-        </div>
-      </section>
 
-      {/* MODEL CARDS — 2x2 like tesla.com */}
-      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
-        <div className="grid gap-2 sm:gap-3 lg:grid-cols-2">
-          <MediaCard
-            image={IMG.modelY}
-            title={c.models[1].name}
-            subtitle={`${c.models[1].priceFrom} · ${c.models[1].range}`}
-            primaryLabel={c.modelCta}
-            secondaryLabel="Detaljer"
-            href={url}
-          />
-          <MediaCard
-            image={IMG.model3}
-            title={c.models[0].name}
-            subtitle={`${c.models[0].priceFrom} · ${c.models[0].range}`}
-            primaryLabel={c.modelCta}
-            secondaryLabel="Detaljer"
-            href={url}
-          />
-        </div>
-      </section>
-
-      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
-        <div className="grid gap-2 sm:gap-3 lg:grid-cols-2">
-          <MediaCard
-            image={IMG.modelS}
-            title={c.models[2].name}
-            subtitle={`${c.models[2].priceFrom} · ${c.models[2].range}`}
-            primaryLabel={c.modelCta}
-            secondaryLabel="Detaljer"
-            href={url}
-          />
-          <MediaCard
-            image={IMG.modelX}
-            title={c.models[3].name}
-            subtitle={`${c.models[3].priceFrom} · ${c.models[3].range}`}
-            primaryLabel={c.modelCta}
-            secondaryLabel="Detaljer"
-            href={url}
-          />
-        </div>
-      </section>
-
-      {/* HOW IT WORKS — clean white card, tesla.com style */}
-      <section id="how" className="px-2 pt-2 sm:px-3 sm:pt-3">
-        <div className="rounded-2xl bg-white px-6 py-20 sm:px-12 sm:py-28">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="t-title">{c.howTitle}</h2>
-            <p className="mt-3 t-sub text-[--color-muted]">{c.howSub}</p>
+          {/* Single contained image */}
+          <div className="mt-12 overflow-hidden rounded-xl border border-[--color-line]">
+            <div className="relative aspect-[16/9]">
+              <Image
+                src={HERO_IMG}
+                alt="Tesla"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 768px"
+                className="object-cover"
+              />
+            </div>
           </div>
-          <div className="mx-auto mt-16 grid max-w-5xl gap-12 sm:grid-cols-3">
+        </section>
+
+        {/* WHY */}
+        <section className="border-t border-[--color-line] py-16 sm:py-20">
+          <h2 className="text-[28px] font-semibold tracking-tight sm:text-[32px]">
+            {c.whyTitle}
+          </h2>
+          <p className="mt-3 max-w-xl text-[15px] text-[--color-muted]">{c.whySub}</p>
+
+          <ul className="mt-10 space-y-6">
+            {c.benefits.map((b, i) => (
+              <li key={i} className="flex gap-4">
+                <span className="mt-1 flex size-5 shrink-0 items-center justify-center rounded-full bg-[--color-foreground]">
+                  <Check className="size-3 text-white" strokeWidth={3} />
+                </span>
+                <div>
+                  <div className="text-[15px] font-medium">{b.t}</div>
+                  <div className="mt-1 text-[14px] leading-relaxed text-[--color-muted]">{b.d}</div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* HOW */}
+        <section id="how" className="border-t border-[--color-line] py-16 sm:py-20">
+          <h2 className="text-[28px] font-semibold tracking-tight sm:text-[32px]">{c.howTitle}</h2>
+          <p className="mt-3 max-w-xl text-[15px] text-[--color-muted]">{c.howSub}</p>
+
+          <ol className="mt-10 space-y-8">
             {c.steps.map((s, i) => (
-              <div key={i} className="text-center">
-                <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-[--color-foreground] text-[14px] font-medium text-white">
+              <li key={i} className="flex gap-5">
+                <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[--color-surface] text-[13px] font-semibold tabular-nums text-[--color-foreground] ring-1 ring-inset ring-[--color-line]">
                   {i + 1}
                 </div>
-                <h3 className="mt-6 text-[17px] font-medium">{s.t}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-[--color-muted]">{s.d}</p>
-              </div>
+                <div className="pt-0.5">
+                  <h3 className="text-[16px] font-medium">{s.t}</h3>
+                  <p className="mt-1.5 text-[14px] leading-relaxed text-[--color-muted]">{s.d}</p>
+                </div>
+              </li>
             ))}
-          </div>
-        </div>
-      </section>
+          </ol>
+        </section>
 
-      {/* STATS */}
-      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
-        <div className="rounded-2xl bg-white px-6 py-14 sm:px-12">
-          <div className="grid grid-cols-2 gap-10 sm:grid-cols-4">
-            {stats.map((s, i) => (
-              <div key={i} className="text-center sm:text-left">
-                <div className="text-[2rem] font-medium tracking-tight sm:text-[2.5rem]">{s.value}</div>
-                <div className="mt-1 text-[12px] uppercase tracking-[0.08em] text-[--color-muted]">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        {/* MODELS — text list, no images */}
+        <section className="border-t border-[--color-line] py-16 sm:py-20">
+          <h2 className="text-[28px] font-semibold tracking-tight sm:text-[32px]">{c.modelsTitle}</h2>
+          <p className="mt-3 max-w-xl text-[15px] text-[--color-muted]">{c.modelsSub}</p>
 
-      {/* TESTIMONIALS */}
-      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
-        <div className="rounded-2xl bg-white px-6 py-20 sm:px-12 sm:py-28">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="t-title">{proof.title}</h2>
-            <p className="mt-3 t-sub text-[--color-muted]">{proof.sub}</p>
-          </div>
-          <div className="mx-auto mt-14 grid max-w-6xl gap-3 sm:grid-cols-3">
-            {testimonials.map((t, i) => (
-              <figure key={i} className="rounded-2xl bg-[--color-surface] p-8">
-                <blockquote className="text-[15px] leading-relaxed">"{t.quote}"</blockquote>
-                <figcaption className="mt-6 flex items-center gap-3">
-                  <div className="flex size-9 items-center justify-center rounded-full bg-[--color-foreground] text-[12px] font-medium text-white">
-                    {t.name.charAt(0)}
-                  </div>
+          <div className="mt-10 divide-y divide-[--color-line] border-y border-[--color-line]">
+            {c.models.map((m) => (
+              <a
+                key={m.id}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                className="group flex items-center justify-between gap-6 py-5 transition"
+              >
+                <div className="flex items-baseline gap-4">
+                  <span className="w-8 text-2xl font-semibold tabular-nums">{m.id}</span>
                   <div>
-                    <div className="text-[13px] font-medium">{t.name} · {t.role}</div>
-                    <div className="text-[12px] text-[--color-muted]">{t.model}</div>
+                    <div className="text-[16px] font-medium">{m.name}</div>
+                    <div className="text-[13px] text-[--color-muted]">
+                      {m.priceFrom} · {m.range}
+                    </div>
                   </div>
-                </figcaption>
-              </figure>
+                </div>
+                <ArrowRight className="size-4 text-[--color-muted] transition group-hover:translate-x-0.5 group-hover:text-[--color-foreground]" />
+              </a>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* COMPARISON */}
-      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
-        <div className="rounded-2xl bg-white px-6 py-20 sm:px-12 sm:py-28">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 className="t-title">{c.comparisonTitle}</h2>
-            <p className="mt-3 t-sub text-[--color-muted]">{c.comparisonSub}</p>
-          </div>
-          <div className="mx-auto mt-14 max-w-3xl overflow-hidden rounded-xl">
-            <div className="grid grid-cols-3">
-              <div></div>
-              <div className="px-6 py-4 text-center text-[11px] font-medium uppercase tracking-[0.1em] text-[--color-muted]">{c.comparisonHeaders[1]}</div>
-              <div className="rounded-t-lg bg-[--color-foreground] px-6 py-4 text-center text-[11px] font-medium uppercase tracking-[0.1em] text-white">{c.comparisonHeaders[2]}</div>
+        {/* COMPARISON */}
+        <section className="border-t border-[--color-line] py-16 sm:py-20">
+          <h2 className="text-[28px] font-semibold tracking-tight sm:text-[32px]">{c.comparisonTitle}</h2>
+          <p className="mt-3 max-w-xl text-[15px] text-[--color-muted]">{c.comparisonSub}</p>
+
+          <div className="mt-10 overflow-hidden rounded-lg border border-[--color-line]">
+            <div className="grid grid-cols-3 bg-[--color-surface]">
+              <div className="px-4 py-3 text-[11px] font-medium uppercase tracking-wider text-[--color-muted]"></div>
+              <div className="px-4 py-3 text-[11px] font-medium uppercase tracking-wider text-[--color-muted]">{c.comparisonHeaders[1]}</div>
+              <div className="px-4 py-3 text-[11px] font-medium uppercase tracking-wider text-[--color-foreground]">{c.comparisonHeaders[2]}</div>
             </div>
             {c.comparisonRows.map((row, i) => (
-              <div key={i} className="grid grid-cols-3 border-t border-[--color-line]">
-                <div className="px-6 py-5 text-[14px] font-medium">{row[0]}</div>
-                <div className="px-6 py-5 text-center text-[14px] text-[--color-muted]">{row[1]}</div>
-                <div className="bg-[--color-surface] px-6 py-5 text-center text-[14px] font-medium">{row[2]}</div>
+              <div key={i} className="grid grid-cols-3 border-t border-[--color-line] text-[14px]">
+                <div className="px-4 py-3 font-medium">{row[0]}</div>
+                <div className="px-4 py-3 text-[--color-muted]">{row[1]}</div>
+                <div className="px-4 py-3">{row[2]}</div>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ */}
-      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
-        <div className="rounded-2xl bg-white px-6 py-20 sm:px-12 sm:py-28">
-          <div className="mx-auto max-w-3xl">
-            <div className="text-center">
-              <h2 className="t-title">{c.faqTitle}</h2>
-              <p className="mt-3 t-sub text-[--color-muted]">{c.faqSub}</p>
-            </div>
-            <div className="mt-12">
-              {c.faqs.map((f, i) => (
-                <details key={i} className="group border-b border-[--color-line]">
-                  <summary className="flex cursor-pointer items-center justify-between gap-4 py-5">
-                    <span className="text-[16px] font-medium">{f.q}</span>
-                    <Plus className="size-4 shrink-0 text-[--color-muted] transition-transform group-open:rotate-45" />
-                  </summary>
-                  <div className="pb-5 pr-8 text-[14px] leading-relaxed text-[--color-muted]">{f.a}</div>
-                </details>
-              ))}
-            </div>
+        {/* FAQ */}
+        <section className="border-t border-[--color-line] py-16 sm:py-20">
+          <h2 className="text-[28px] font-semibold tracking-tight sm:text-[32px]">{c.faqTitle}</h2>
+          <p className="mt-3 max-w-xl text-[15px] text-[--color-muted]">{c.faqSub}</p>
+
+          <div className="mt-10 divide-y divide-[--color-line] border-y border-[--color-line]">
+            {c.faqs.map((f, i) => (
+              <details key={i} className="group">
+                <summary className="flex cursor-pointer items-start justify-between gap-4 py-5">
+                  <span className="text-[15px] font-medium">{f.q}</span>
+                  <Plus className="mt-1 size-4 shrink-0 text-[--color-muted] transition-transform group-open:rotate-45" />
+                </summary>
+                <div className="pb-5 pr-8 text-[14px] leading-relaxed text-[--color-muted]">{f.a}</div>
+              </details>
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FINAL CTA */}
-      <section className="px-2 pt-2 sm:px-3 sm:pt-3">
-        <MediaCard
-          image={IMG.finalCta}
-          title={c.finalCta}
-          subtitle={c.finalCtaSub}
-          primaryLabel={c.finalCtaButton}
-          secondaryLabel={c.ctaSecondary}
-          href={url}
-          height="h-[640px]"
-        />
-      </section>
+        {/* FINAL CTA — text only */}
+        <section className="border-t border-[--color-line] py-20 sm:py-28 text-center">
+          <h2 className="text-[32px] font-semibold tracking-tight sm:text-[40px]">{c.finalCta}</h2>
+          <p className="mx-auto mt-4 max-w-md text-[15px] text-[--color-muted]">{c.finalCtaSub}</p>
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer sponsored"
+            className="group mt-8 inline-flex items-center gap-2 rounded-full bg-[--color-foreground] px-6 py-3.5 text-[14px] font-medium text-white transition hover:bg-black"
+          >
+            {c.finalCtaButton}
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+          </a>
+        </section>
+      </main>
 
       {/* FOOTER */}
-      <footer className="px-2 pt-2 pb-2 sm:px-3 sm:pt-3 sm:pb-3">
-        <div className="rounded-2xl bg-white px-6 py-12 sm:px-12">
-          <div className="flex flex-wrap items-center justify-between gap-6 pb-8">
-            <Link href={`/${locale}`} className="text-[14px] font-semibold tracking-tight">
+      <footer className="border-t border-[--color-line]">
+        <div className="mx-auto max-w-3xl px-6 py-10">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-6">
+            <Link href={`/${locale}`} className="text-[13px] font-semibold">
               teslahenvisning.com
             </Link>
-            <div className="flex gap-6 text-[12px] uppercase tracking-[0.08em]">
+            <div className="flex gap-5 text-[12px]">
               {LOCALES.map((l) => (
                 <Link
                   key={l}
                   href={`/${l}`}
-                  className={l === locale ? "text-[--color-foreground] font-medium" : "text-[--color-muted] hover:text-[--color-foreground]"}
+                  className={l === locale ? "font-medium" : "text-[--color-muted] hover:text-[--color-foreground]"}
                 >
                   {CONTENT[l].localeName}
                 </Link>
               ))}
             </div>
           </div>
-          <div className="border-t border-[--color-line] pt-6 text-[11px] leading-relaxed text-[--color-muted-2]">
-            <p className="max-w-4xl">{c.disclaimer}</p>
-            <p className="mt-3">© {new Date().getFullYear()} teslahenvisning.com</p>
-          </div>
+          <p className="border-t border-[--color-line] pt-6 text-[11px] leading-relaxed text-[--color-muted-2]">
+            {c.disclaimer}
+          </p>
+          <p className="mt-3 text-[11px] text-[--color-muted-2]">
+            © {new Date().getFullYear()} teslahenvisning.com
+          </p>
         </div>
       </footer>
     </>
