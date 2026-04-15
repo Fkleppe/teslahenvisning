@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   CONTENT,
@@ -89,6 +90,22 @@ export function LocalePage({ locale }: { locale: Locale }) {
             </div>
             <div className="mt-2 text-[18px] font-semibold">5 000 kr rabatt</div>
             <div className="mt-1 text-[13px] text-[--color-muted]">Trekkes fra kjøpesummen</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Model Y showcase image */}
+      <section className="px-6 pb-20 sm:px-10 sm:pb-28">
+        <div className="mx-auto max-w-[1100px]">
+          <div className="relative aspect-[16/9] overflow-hidden rounded-2xl">
+            <Image
+              src="/model-y-bonus.png"
+              alt="Model Y · 1 000 gratis Supercharging-kilometer"
+              fill
+              sizes="(max-width: 1100px) 100vw, 1100px"
+              className="object-cover"
+              priority
+            />
           </div>
         </div>
       </section>
