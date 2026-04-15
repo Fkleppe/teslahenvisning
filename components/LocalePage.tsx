@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import {
   CONTENT,
@@ -12,9 +11,6 @@ import {
 } from "@/lib/content";
 import { JsonLd } from "./JsonLd";
 
-const HERO_IMG =
-  "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=2400&q=90";
-
 export function LocalePage({ locale }: { locale: Locale }) {
   const c = CONTENT[locale];
   const url = REFERRAL_URLS[locale];
@@ -26,19 +22,19 @@ export function LocalePage({ locale }: { locale: Locale }) {
     <>
       <JsonLd locale={locale} />
 
-      {/* MINIMAL HEADER — absolute on hero */}
-      <header className="absolute top-0 left-0 right-0 z-50">
-        <div className="mx-auto flex max-w-[1480px] items-center justify-between px-6 py-6 sm:px-10">
-          <Link href={`/${locale}`} className="text-[14px] font-semibold tracking-[0.04em] text-white">
+      {/* HEADER */}
+      <header className="border-b border-black/6">
+        <div className="mx-auto flex max-w-[1480px] items-center justify-between px-6 py-5 sm:px-10">
+          <Link href={`/${locale}`} className="text-[14px] font-semibold tracking-[0.02em]">
             teslahenvisning
           </Link>
-          <nav className="flex items-center gap-1 text-[11px] font-medium uppercase tracking-[0.095em] text-white">
+          <nav className="flex items-center gap-1 text-[11px] font-medium uppercase tracking-[0.09em]">
             {LOCALES.map((l) => (
               <Link
                 key={l}
                 href={`/${l}`}
                 className={`rounded-full px-3 py-1.5 transition ${
-                  l === locale ? "bg-white/15 backdrop-blur" : "hover:bg-white/10"
+                  l === locale ? "bg-[--color-ink] text-white" : "text-[--color-muted] hover:text-[--color-ink]"
                 }`}
               >
                 {CONTENT[l].localeName}
@@ -48,37 +44,51 @@ export function LocalePage({ locale }: { locale: Locale }) {
         </div>
       </header>
 
-      {/* HERO — full viewport, Tesla-style */}
-      <section className="relative h-screen min-h-[640px] w-full overflow-hidden">
-        <Image src={HERO_IMG} alt="Tesla" fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 scrim-top" />
-
-        <div className="relative z-10 flex h-full flex-col items-center">
-          {/* Title block top */}
-          <div className="fade pt-[18vh] text-center text-white">
-            <h1 className="h-hero">{c.heroTitle}</h1>
-            <p className="mt-2 sub-hero !text-white/85">{c.heroTitleAccent}</p>
+      {/* HERO — text-only, confident */}
+      <section className="px-6 pt-24 pb-20 text-center sm:px-10 sm:pt-32 sm:pb-24">
+        <div className="mx-auto max-w-3xl">
+          <div className="fade flex items-center justify-center gap-3 text-[11px] uppercase tracking-[0.14em] text-[--color-muted]">
+            <span className="rounded-sm bg-amber-400/90 px-1.5 py-0.5 text-[10px] font-semibold text-amber-950">
+              {c.adLabel}
+            </span>
+            <span className="tabular">{c.verifiedPrefix} {LAST_VERIFIED}</span>
           </div>
+          <h1 className="fade-2 mt-8 h-hero">
+            {c.heroTitle} <span className="text-[--color-muted]">{c.heroTitleAccent}</span>
+          </h1>
+          <p className="fade-3 mx-auto mt-7 max-w-xl text-[17px] leading-[1.6] text-[--color-muted]">
+            {c.heroSub}
+          </p>
+          <div className="fade-3 mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="tbtn tbtn-fill"
+            >
+              {c.ctaPrimary}
+            </a>
+            <a href="#bonus" className="tbtn tbtn-ghost !bg-transparent hover:!bg-black/5">
+              {c.ctaSecondary}
+            </a>
+          </div>
+        </div>
 
-          {/* CTA block bottom */}
-          <div className="mt-auto pb-14">
-            <div className="fade-2 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                className="tbtn tbtn-fill"
-              >
-                {c.ctaPrimary}
-              </a>
-              <a href="#bonus" className="tbtn tbtn-ghost">
-                {c.ctaSecondary}
-              </a>
+        {/* Bonus-at-a-glance — two tight cards, ikke store bilder */}
+        <div className="mx-auto mt-16 grid max-w-2xl gap-3 sm:grid-cols-2">
+          <div className="rounded-xl border border-black/8 p-5 text-left">
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-[--color-muted]">
+              Model 3 & Y
             </div>
-            <div className="fade-3 mt-4 text-center text-[11px] uppercase tracking-[0.14em] text-white/65">
-              <span className="rounded-sm bg-amber-400/90 px-1.5 py-0.5 text-[10px] font-semibold text-amber-950">{c.adLabel}</span>
-              <span className="ml-3 tabular">{c.verifiedPrefix} {LAST_VERIFIED}</span>
+            <div className="mt-2 text-[18px] font-semibold">Gratis Supercharging</div>
+            <div className="mt-1 text-[13px] text-[--color-muted]">Aktiveres ved levering</div>
+          </div>
+          <div className="rounded-xl border border-black/8 p-5 text-left">
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-[--color-muted]">
+              Model S & X
             </div>
+            <div className="mt-2 text-[18px] font-semibold">5 000 kr rabatt</div>
+            <div className="mt-1 text-[13px] text-[--color-muted]">Trekkes fra kjøpesummen</div>
           </div>
         </div>
       </section>
@@ -156,6 +166,7 @@ export function LocalePage({ locale }: { locale: Locale }) {
               <div className="hidden text-right text-[13px] text-[--color-muted] tabular sm:block">
                 <div>{m.priceFrom}</div>
                 <div>{m.range}</div>
+                <div className="mt-1 text-[12px] font-medium text-[--color-ink]">{m.bonus}</div>
               </div>
               <span className="text-[--color-muted-2] transition group-hover:translate-x-1 group-hover:text-[--color-ink]" aria-hidden>→</span>
             </a>

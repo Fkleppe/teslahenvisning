@@ -41,39 +41,39 @@ export const NAV: Record<Locale, { label: string; href: string }[]> = {
 export const BONUS_INFO: Record<Locale, { title: string; intro: string; points: { k: string; v: string }[]; note: string }> = {
   no: {
     title: "Hva er den aktive henvisningsbonusen?",
-    intro: "Tesla endrer henvisningsprogrammet sitt jevnlig — noen ganger hvert kvartal. Her er det vi vet om det aktive tilbudet akkurat nå.",
+    intro: "Tesla endrer henvisningskampanjen jevnlig — nesten hvert kvartal. Akkurat nå er den delt i to: én bonus for Model 3 og Y, og en annen for Model S og X.",
     points: [
-      { k: "Type bonus", v: "Gratis Supercharger-kilometer aktivert ved levering" },
-      { k: "Aktiveringsform", v: "Automatisk via URL — ingen kode eller skjema" },
-      { k: "Kvalifiserende kjøp", v: "Nye Model 3, Y, S, X — inkludert privatleasing" },
-      { k: "Unntak", v: "Brukte biler fra Tesla-lager og demo-biler er unntatt" },
-      { k: "Gyldighet", v: "Bonusen aktiveres ved delivery, ikke ved bestilling" },
+      { k: "Model 3 & Y", v: "Gratis Supercharging — aktivert ved levering" },
+      { k: "Model S & X", v: "5 000 kr rabatt på kjøpesummen" },
+      { k: "Aktiveringsform", v: "Automatisk via URL — ingen kode, ingen skjema" },
+      { k: "Kvalifiserende kjøp", v: "Nye biler — inkludert privatleasing" },
+      { k: "Unntak", v: "Brukte biler fra Tesla-lager og demo-biler" },
     ],
-    note: "Det eksakte antall kilometer endrer seg — Tesla viser den aktive kampanjen i bestillingsflyten. Vi oppdaterer denne siden hver gang programmet endres.",
+    note: "Tesla justerer beløp og vilkår uten forvarsel. Vi oppdaterer denne siden når programmet endres — sist verifisert 2026-04-15.",
   },
   dk: {
     title: "Hvad er den aktuelle henvisningsbonus?",
-    intro: "Tesla ændrer henvisningsprogrammet regelmæssigt — nogle gange hvert kvartal. Her er hvad vi ved om det aktive tilbud lige nu.",
+    intro: "Tesla ændrer henvisningskampagnen regelmæssigt — næsten hvert kvartal. Lige nu er den delt: én bonus for Model 3 og Y, og en anden for Model S og X.",
     points: [
-      { k: "Type bonus", v: "Gratis Supercharger-kilometer aktiveret ved levering" },
-      { k: "Aktiveringsform", v: "Automatisk via URL — ingen kode eller formular" },
-      { k: "Kvalificerende køb", v: "Nye Model 3, Y, S, X — inklusive privatleasing" },
-      { k: "Undtagelser", v: "Brugte biler fra Tesla-lager og demobiler er undtaget" },
-      { k: "Gyldighed", v: "Bonussen aktiveres ved levering, ikke ved bestilling" },
+      { k: "Model 3 & Y", v: "Gratis Supercharging — aktiveret ved levering" },
+      { k: "Model S & X", v: "5 000 kr rabat på købsprisen" },
+      { k: "Aktiveringsform", v: "Automatisk via URL — ingen kode, ingen formular" },
+      { k: "Kvalificerende køb", v: "Nye biler — inklusive privatleasing" },
+      { k: "Undtagelser", v: "Brugte biler fra Tesla-lager og demobiler" },
     ],
-    note: "Det eksakte antal kilometer ændrer sig — Tesla viser den aktive kampagne i bestillingsflowet. Vi opdaterer siden når programmet ændres.",
+    note: "Tesla justerer beløb og vilkår uden varsel. Vi opdaterer siden når programmet ændres — senest verificeret 2026-04-15.",
   },
   se: {
     title: "Vad är den aktuella värva vän-bonusen?",
-    intro: "Tesla ändrar värva vän-programmet regelbundet — ibland varje kvartal. Här är vad vi vet om det aktiva erbjudandet just nu.",
+    intro: "Tesla ändrar värva vän-kampanjen regelbundet — nästan varje kvartal. Just nu är den uppdelad: en bonus för Model 3 och Y, och en annan för Model S och X.",
     points: [
-      { k: "Typ av bonus", v: "Gratis Supercharger-kilometer aktiverade vid leverans" },
-      { k: "Aktiveringsform", v: "Automatiskt via URL — ingen kod eller formulär" },
-      { k: "Kvalificerande köp", v: "Nya Model 3, Y, S, X — inklusive privatleasing" },
-      { k: "Undantag", v: "Begagnade bilar från Tesla-lager och demobilar är undantagna" },
-      { k: "Giltighet", v: "Bonusen aktiveras vid leverans, inte vid beställning" },
+      { k: "Model 3 & Y", v: "Gratis Supercharging — aktiveras vid leverans" },
+      { k: "Model S & X", v: "5 000 kr rabatt på köpeskillingen" },
+      { k: "Aktiveringsform", v: "Automatiskt via URL — ingen kod, inget formulär" },
+      { k: "Kvalificerande köp", v: "Nya bilar — inklusive privatleasing" },
+      { k: "Undantag", v: "Begagnade bilar från Tesla-lager och demobilar" },
     ],
-    note: "Exakt antal kilometer varierar — Tesla visar den aktiva kampanjen i beställningsflödet. Vi uppdaterar sidan när programmet ändras.",
+    note: "Tesla justerar belopp och villkor utan förvarning. Vi uppdaterar sidan när programmet ändras — senast verifierad 2026-04-15.",
   },
 };
 
@@ -256,7 +256,7 @@ export const PROOF_LABEL: Record<Locale, { title: string; sub: string }> = {
 
 export type Benefit = { icon: "zap" | "shield" | "gift" | "clock"; t: string; d: string };
 export type FAQ = { q: string; a: string };
-export type Model = { id: "3" | "Y" | "S" | "X"; name: string; tag: string; priceFrom: string; range: string };
+export type Model = { id: "3" | "Y" | "S" | "X"; name: string; tag: string; priceFrom: string; range: string; bonus: string };
 
 type Copy = {
   htmlLang: string;
@@ -350,10 +350,10 @@ export const CONTENT: Record<Locale, Copy> = {
     modelsTitle: "Velg din Tesla",
     modelsSub: "Alle modeller kvalifiserer til henvisningsbonus.",
     models: [
-      { id: "3", name: "Model 3", tag: "Mest populær", priceFrom: "fra 399 900 kr", range: "513 km rekkevidde" },
-      { id: "Y", name: "Model Y", tag: "Mest solgt i Norge", priceFrom: "fra 449 900 kr", range: "533 km rekkevidde" },
-      { id: "S", name: "Model S", tag: "Luksus", priceFrom: "fra 899 900 kr", range: "634 km rekkevidde" },
-      { id: "X", name: "Model X", tag: "SUV", priceFrom: "fra 999 900 kr", range: "560 km rekkevidde" },
+      { id: "3", name: "Model 3", tag: "Mest populær", priceFrom: "fra 399 900 kr", range: "513 km rekkevidde", bonus: "Gratis Supercharging" },
+      { id: "Y", name: "Model Y", tag: "Mest solgt i Norge", priceFrom: "fra 449 900 kr", range: "533 km rekkevidde", bonus: "Gratis Supercharging" },
+      { id: "S", name: "Model S", tag: "Luksus", priceFrom: "fra 899 900 kr", range: "634 km rekkevidde", bonus: "5 000 kr rabatt" },
+      { id: "X", name: "Model X", tag: "SUV", priceFrom: "fra 999 900 kr", range: "560 km rekkevidde", bonus: "5 000 kr rabatt" },
     ],
     modelCta: "Åpne Tesla med henvisning",
 
@@ -425,10 +425,10 @@ export const CONTENT: Record<Locale, Copy> = {
     modelsTitle: "Vælg din Tesla",
     modelsSub: "Alle modeller kvalificerer til henvisningsbonus.",
     models: [
-      { id: "3", name: "Model 3", tag: "Mest populære", priceFrom: "fra 329.990 kr", range: "513 km rækkevidde" },
-      { id: "Y", name: "Model Y", tag: "Familiefavorit", priceFrom: "fra 369.990 kr", range: "533 km rækkevidde" },
-      { id: "S", name: "Model S", tag: "Luksus", priceFrom: "fra 799.990 kr", range: "634 km rækkevidde" },
-      { id: "X", name: "Model X", tag: "SUV", priceFrom: "fra 899.990 kr", range: "560 km rækkevidde" },
+      { id: "3", name: "Model 3", tag: "Mest populære", priceFrom: "fra 329.990 kr", range: "513 km rækkevidde", bonus: "Gratis Supercharging" },
+      { id: "Y", name: "Model Y", tag: "Familiefavorit", priceFrom: "fra 369.990 kr", range: "533 km rækkevidde", bonus: "Gratis Supercharging" },
+      { id: "S", name: "Model S", tag: "Luksus", priceFrom: "fra 799.990 kr", range: "634 km rækkevidde", bonus: "5.000 kr rabat" },
+      { id: "X", name: "Model X", tag: "SUV", priceFrom: "fra 899.990 kr", range: "560 km rækkevidde", bonus: "5.000 kr rabat" },
     ],
     modelCta: "Åbn Tesla med henvisning",
 
@@ -500,10 +500,10 @@ export const CONTENT: Record<Locale, Copy> = {
     modelsTitle: "Välj din Tesla",
     modelsSub: "Alla modeller kvalificerar för värva vän-bonus.",
     models: [
-      { id: "3", name: "Model 3", tag: "Populärast", priceFrom: "från 459 990 kr", range: "513 km räckvidd" },
-      { id: "Y", name: "Model Y", tag: "Familjefavorit", priceFrom: "från 499 990 kr", range: "533 km räckvidd" },
-      { id: "S", name: "Model S", tag: "Lyx", priceFrom: "från 1 049 990 kr", range: "634 km räckvidd" },
-      { id: "X", name: "Model X", tag: "SUV", priceFrom: "från 1 149 990 kr", range: "560 km räckvidd" },
+      { id: "3", name: "Model 3", tag: "Populärast", priceFrom: "från 459 990 kr", range: "513 km räckvidd", bonus: "Gratis Supercharging" },
+      { id: "Y", name: "Model Y", tag: "Familjefavorit", priceFrom: "från 499 990 kr", range: "533 km räckvidd", bonus: "Gratis Supercharging" },
+      { id: "S", name: "Model S", tag: "Lyx", priceFrom: "från 1 049 990 kr", range: "634 km räckvidd", bonus: "5 000 kr rabatt" },
+      { id: "X", name: "Model X", tag: "SUV", priceFrom: "från 1 149 990 kr", range: "560 km räckvidd", bonus: "5 000 kr rabatt" },
     ],
     modelCta: "Öppna Tesla med länken",
 
