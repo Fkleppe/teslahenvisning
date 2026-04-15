@@ -8,7 +8,7 @@ export const REFERRAL_URLS: Record<Locale, string> = {
   se: "https://www.tesla.com/sv_se/referral/create64623",
 };
 
-export const LAST_VERIFIED = "2026-04-14";
+export const LAST_VERIFIED = "2026-04-15";
 export const ACTIVE_SINCE = "2022";
 
 export const NAV: Record<Locale, { label: string; href: string }[]> = {

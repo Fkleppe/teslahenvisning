@@ -1,122 +1,81 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #fafaf7;
-  --ink: #0a0a0a;
-  --ink-soft: #1a1a1a;
-  --paper: #ffffff;
-  --muted: #6b6b6b;
-  --muted-2: #a1a1a1;
-  --line: rgba(10, 10, 10, 0.08);
-  --green: #00a45c;
+  --bg: #ffffff;
+  --ink: #171a20;
+  --muted: #5c5e62;
+  --muted-2: #a6a9ad;
+  --btn-fill: rgba(23, 26, 32, 0.8);
+  --btn-fill-hover: rgba(23, 26, 32, 0.92);
+  --btn-ghost: rgba(244, 244, 244, 0.65);
+  --btn-ghost-hover: rgba(244, 244, 244, 0.9);
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-paper: var(--paper);
   --color-muted: var(--muted);
   --color-muted-2: var(--muted-2);
-  --color-line: var(--line);
-  --color-green: var(--green);
   --font-sans: var(--font-geist-sans);
 }
 
 html, body { background: var(--bg); color: var(--ink); }
 body {
-  font-family: var(--font-geist-sans), "Inter", -apple-system, system-ui, sans-serif;
-  font-feature-settings: "ss01", "cv11", "cv05";
+  font-family: var(--font-geist-sans), "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
-  letter-spacing: -0.008em;
+  letter-spacing: -0.005em;
 }
 
 .tabular { font-variant-numeric: tabular-nums; }
 
-.display {
-  font-size: clamp(3rem, 8vw, 7rem);
+/* Tesla-ish typography — confident mid-size */
+.h-hero {
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
   font-weight: 600;
-  line-height: 0.92;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
 }
-.h2 {
-  font-size: clamp(2rem, 4.5vw, 3.25rem);
+.h-section {
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
   font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.028em;
+  letter-spacing: -0.012em;
+  line-height: 1.1;
 }
-.h3 { font-size: 1.0625rem; font-weight: 500; letter-spacing: -0.01em; }
-
-.label {
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+.sub-hero {
+  font-size: 0.9375rem;
+  font-weight: 400;
   color: var(--muted);
 }
 
-.live {
-  position: relative;
-  display: inline-block;
-  width: 0.5rem;
-  height: 0.5rem;
-}
-.live::before {
-  content: "";
-  position: absolute; inset: 0;
+/* Tesla-style buttons: pill, uppercase, tracking */
+.tbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.75rem;
+  min-width: 14rem;
+  padding: 0 2rem;
   border-radius: 9999px;
-  background: var(--green);
-  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-  opacity: 0.6;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.095em;
+  text-transform: uppercase;
+  transition: background-color 0.15s;
 }
-.live::after {
-  content: ""; position: absolute; inset: 0;
-  border-radius: 9999px; background: var(--green);
-}
-@keyframes ping { 75%, 100% { transform: scale(2.6); opacity: 0; } }
+.tbtn-fill { background: var(--btn-fill); color: #fff; }
+.tbtn-fill:hover { background: var(--btn-fill-hover); }
+.tbtn-ghost { background: var(--btn-ghost); color: var(--ink); backdrop-filter: blur(10px); }
+.tbtn-ghost:hover { background: var(--btn-ghost-hover); }
 
 .fade { animation: f 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-.fade-2 { animation: f 0.7s 0.1s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-.fade-3 { animation: f 0.7s 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-.fade-4 { animation: f 0.7s 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.fade-2 { animation: f 0.7s 0.08s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.fade-3 { animation: f 0.7s 0.16s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 @keyframes f {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  height: 3.5rem; padding: 0 2rem;
-  background: var(--ink); color: #fff;
-  border-radius: 9999px;
-  font-size: 0.9375rem; font-weight: 500;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 40px -10px rgba(10,10,10,0.35);
-}
-
-.hero-image-card {
-  border-radius: 2rem;
-  overflow: hidden;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.6) inset,
-    0 40px 80px -30px rgba(10,10,10,0.3),
-    0 12px 30px -10px rgba(10,10,10,0.1);
-}
-
-.ticker {
-  display: flex; gap: 4rem;
-  width: max-content;
-  animation: tk 30s linear infinite;
-}
-@keyframes tk {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.dark-band {
-  background: var(--ink);
-  color: #fafaf7;
+/* Hero image scrim — Tesla-style darkening at top for title legibility */
+.scrim-top {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 30%);
 }
