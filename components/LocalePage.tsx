@@ -45,67 +45,69 @@ export function LocalePage({ locale }: { locale: Locale }) {
         </div>
       </header>
 
-      {/* HERO — text-only, confident */}
-      <section className="px-6 pt-24 pb-20 text-center sm:px-10 sm:pt-32 sm:pb-24">
-        <div className="mx-auto max-w-3xl">
-          <div className="fade flex items-center justify-center gap-3 text-[11px] uppercase tracking-[0.14em] text-[--color-muted]">
-            <span className="rounded-sm bg-amber-400/90 px-1.5 py-0.5 text-[10px] font-semibold text-amber-950">
-              {c.adLabel}
-            </span>
-            <span className="tabular">{c.verifiedPrefix} {LAST_VERIFIED}</span>
-          </div>
-          <h1 className="fade-2 mt-8 h-hero">
-            {c.heroTitle} <span className="text-[--color-muted]">{c.heroTitleAccent}</span>
-          </h1>
-          <p className="fade-3 mx-auto mt-7 max-w-xl text-[17px] leading-[1.6] text-[--color-muted]">
-            {c.heroSub}
-          </p>
-          <div className="fade-3 mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <a
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer sponsored"
-              className="tbtn tbtn-fill"
-            >
-              {c.ctaPrimary}
-            </a>
-            <a href="#bonus" className="tbtn tbtn-ghost !bg-transparent hover:!bg-black/5">
-              {c.ctaSecondary}
-            </a>
-          </div>
-        </div>
-
-        {/* Bonus-at-a-glance — two tight cards, ikke store bilder */}
-        <div className="mx-auto mt-16 grid max-w-2xl gap-3 sm:grid-cols-2">
-          <div className="rounded-xl border border-black/8 p-5 text-left">
-            <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-[--color-muted]">
-              Model 3 & Y
+      {/* HERO — split 2 columns */}
+      <section className="px-6 pt-16 pb-20 sm:px-10 sm:pt-20 sm:pb-24">
+        <div className="mx-auto grid max-w-[1280px] items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          {/* LEFT: copy */}
+          <div>
+            <div className="fade flex items-center gap-3 text-[11px] uppercase tracking-[0.14em] text-[--color-muted]">
+              <span className="rounded-sm bg-amber-400/90 px-1.5 py-0.5 text-[10px] font-semibold text-amber-950">
+                {c.adLabel}
+              </span>
+              <span className="tabular">{c.verifiedPrefix} {LAST_VERIFIED}</span>
             </div>
-            <div className="mt-2 text-[18px] font-semibold">Gratis Supercharging</div>
-            <div className="mt-1 text-[13px] text-[--color-muted]">Aktiveres ved levering</div>
-          </div>
-          <div className="rounded-xl border border-black/8 p-5 text-left">
-            <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-[--color-muted]">
-              Model S & X
+            <h1 className="fade-2 mt-8 h-hero">
+              {c.heroTitle} <span className="text-[--color-muted]">{c.heroTitleAccent}</span>
+            </h1>
+            <p className="fade-3 mt-7 max-w-xl text-[17px] leading-[1.6] text-[--color-muted]">
+              {c.heroSub}
+            </p>
+            <div className="fade-3 mt-10 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                className="tbtn tbtn-fill"
+              >
+                {c.ctaPrimary}
+              </a>
+              <a href="#bonus" className="tbtn tbtn-ghost !bg-transparent hover:!bg-black/5">
+                {c.ctaSecondary}
+              </a>
             </div>
-            <div className="mt-2 text-[18px] font-semibold">5 000 kr rabatt</div>
-            <div className="mt-1 text-[13px] text-[--color-muted]">Trekkes fra kjøpesummen</div>
-          </div>
-        </div>
-      </section>
 
-      {/* Model Y showcase image */}
-      <section className="px-6 pb-20 sm:px-10 sm:pb-28">
-        <div className="mx-auto max-w-[1100px]">
-          <div className="relative aspect-[16/9] overflow-hidden rounded-2xl">
-            <Image
-              src="/model-y-bonus.png"
-              alt="Model Y · 1 000 gratis Supercharging-kilometer"
-              fill
-              sizes="(max-width: 1100px) 100vw, 1100px"
-              className="object-cover"
-              priority
-            />
+            {/* Two bonus cards under CTAs */}
+            <div className="mt-10 grid max-w-xl gap-3 sm:grid-cols-2">
+              <div className="rounded-xl border border-black/8 p-5">
+                <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-[--color-muted]">
+                  Model 3 & Y
+                </div>
+                <div className="mt-2 text-[17px] font-semibold">Gratis Supercharging</div>
+                <div className="mt-1 text-[13px] text-[--color-muted]">Aktiveres ved levering</div>
+              </div>
+              <div className="rounded-xl border border-black/8 p-5">
+                <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-[--color-muted]">
+                  Model S & X
+                </div>
+                <div className="mt-2 text-[17px] font-semibold">5 000 kr rabatt</div>
+                <div className="mt-1 text-[13px] text-[--color-muted]">Trekkes fra kjøpesummen</div>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT: image */}
+          <div className="fade-2 relative">
+            <div className="relative aspect-[1099/552] w-full overflow-hidden rounded-2xl">
+              <Image
+                src="/model-y-bonus.png"
+                alt="Model Y · 1 000 gratis Supercharging-kilometer"
+                width={1099}
+                height={552}
+                quality={100}
+                priority
+                className="h-full w-full object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
